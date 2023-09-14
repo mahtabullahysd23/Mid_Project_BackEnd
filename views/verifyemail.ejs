@@ -1,0 +1,68 @@
+<html>
+<head>
+  <title>Email Verification</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      background-color: #fff;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .header h1 {
+      color: #333;
+    }
+    .content {
+      color: #555;
+    }
+   
+  .button{
+    margin: 20px 0;
+    text-align: center;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .button:hover {
+    background-color: #0056b3;
+  }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Email Verification</h1>
+    </div>
+    <div class="content">
+      <p>Hello,<%=name%></p>
+      <p>Thank you for registering with our service. To verify your email, please click the button below:</p>
+    </div>
+    <center>
+      <form action="<%=validationlink%>" method="post">
+          <input class="button" type="submit" value="Verify Email" />
+      </form>
+    </center>
+    <div class="content">
+      <p>If you did not register for our service, you can safely ignore this email.</p>
+      <p>Best regards,</p>
+      <p>Book Heaven</p>
+    </div>
+  </div>
+</body>
+</html>
+
