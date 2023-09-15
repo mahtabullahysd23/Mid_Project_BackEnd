@@ -52,8 +52,12 @@ const authvalidator = {
       .isLength({ min: 8 })
       .withMessage("Password must be at least 8 characters")
       .bail()
-      .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)
-      .withMessage("Password must contain at least one uppercase letter, one lowercase letter,one number and one special character"),
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+      )
+      .withMessage(
+        "Password must contain at least one uppercase letter, one lowercase letter,one number and one special character"
+      ),
     body("cpassword")
       .exists()
       .withMessage("Confirm Password was not provided")
@@ -70,7 +74,7 @@ const authvalidator = {
           throw new Error("Confirm Password does not match Password");
         }
         return true;
-      })
+      }),
   ],
   login: [
     body("email")
@@ -93,9 +97,9 @@ const authvalidator = {
       .withMessage("Invalid Credential")
       .bail()
       .isString()
-      .withMessage("Invalid Credential")
-  ]
-}
+      .withMessage("Invalid Credential"),
+  ],
+};
 
 const cartValidator = {
   add: [
@@ -126,8 +130,7 @@ const cartValidator = {
       .bail()
       .isLength({ max: 10 })
       .withMessage("Too long input"),
-  ]
-
+  ],
 };
 
 const reviewValidator = {
@@ -145,6 +148,11 @@ const reviewValidator = {
       .isMongoId()
       .withMessage("Book must be a valid mongo id"),
     body("rating")
+      .optional()
+      .bail()
+      .notEmpty()
+      .withMessage("Review cannot be empty")
+      .bail()
       .isNumeric()
       .withMessage("Rating must be a number")
       .bail()
@@ -158,10 +166,10 @@ const reviewValidator = {
       .bail()
       .isString()
       .withMessage("Review must be a string")
-      .bail() 
+      .bail()
       .isLength({ max: 100 })
       .withMessage("Review cannot be more than 100 characters"),
-  ]
-}
+  ],
+};
 
-module.exports = { authvalidator, cartValidator,reviewValidator};
+module.exports = { authvalidator, cartValidator, reviewValidator };

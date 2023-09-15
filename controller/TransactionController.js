@@ -91,7 +91,7 @@ class TransactionController {
         try {
             const user_id = getuserid(req);
             const orders = await Transaction.find({ user: user_id }).populate('books.book', '-stock -_id -reviews').select({ _id: 1, books: 1, total: 1, createdAt: 1 });
-            if (orders) {
+            if (orders.length > 0) {
                 return response(res, HTTP_STATUS.OK, "successfully Received orders", orders);
             }
             return response(res, HTTP_STATUS.NOT_FOUND, "You have no order history");
