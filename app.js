@@ -13,6 +13,8 @@ const BookRouter = require("./routers/Book");
 const CartRouter = require("./routers/Cart");
 const TransactionRouter = require("./routers/Transaction");
 const ReviewRouter = require("./routers/Review");
+const WalletRouter = require("./routers/Wallet");
+const UserRouter = require("./routers/User"); 
 
 
 app.use("/api/auth", AuthRouter);
@@ -20,6 +22,8 @@ app.use("/api/books", BookRouter);
 app.use("/api/cart", CartRouter);
 app.use("/api/transaction", TransactionRouter);
 app.use("/api/reviews", ReviewRouter); 
+app.use("/api/wallet", WalletRouter);
+app.use("/api/user", UserRouter);
 
 
 app.use((req, res) => {

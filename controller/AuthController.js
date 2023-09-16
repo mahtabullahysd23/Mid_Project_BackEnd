@@ -72,7 +72,6 @@ class Authcontroller {
         { $set: { locked: false, unloackTime: Date.now(), attempt: 0 } }
       );
       return response(res, HTTP_STATUS.OK, "Successfully Logged in", {
-        user: user.user,
         token: token,
       });
     } catch (e) {
@@ -194,17 +193,16 @@ class Authcontroller {
         { "email.id": userEmail },
         { $set: { "email.status": true } }
       );
-      if(emailvalidation){
+      if (emailvalidation) {
         return response(res, HTTP_STATUS.OK, "Email verified");
       }
     } catch (e) {
-        if(e instanceof jsonWebtoken.TokenExpiredError){
-            return res.status(401).send(failure("link expired"));
-        }
-        else if(e instanceof jsonWebtoken.JsonWebTokenError){
-            return res.status(401).send(failure("Verification failed"));
-        }
-        return res.status(500).send(failure("Internal server Error")); 
+      if (e instanceof jsonWebtoken.TokenExpiredError) {
+        return res.status(401).send(failure("link expired"));
+      } else if (e instanceof jsonWebtoken.JsonWebTokenError) {
+        return res.status(401).send(failure("Verification failed"));
+      }
+      return res.status(500).send(failure("Internal server Error"));
     }
   }
 }
