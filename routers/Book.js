@@ -1,12 +1,14 @@
 const express = require("express");
-//const { productValidator } = require("../middleware/validation");
-//const {isValidAdmin} = require("../middleware/auth")
+const { bookValidator } = require("../middleware/Validation");
+const {isValidAdmin} = require("../middleware/auth")
 const routes = express();
 const BookController = require("../controller/BookController");
 
 routes.get("/",BookController.getAll);
-// routes.get("/:id",ProductController.getOne);
-// routes.post("/create",isValidAdmin,productValidator.create,ProductController.create);
-// routes.patch("/update",isValidAdmin,productValidator.update,ProductController.update);
-// routes.delete("/delete/:id",isValidAdmin,ProductController.delete);
+routes.get("/:id",BookController.getById);
+routes.post("/add",isValidAdmin,bookValidator.add,BookController.create);
+routes.patch("/update/:id",isValidAdmin,bookValidator.update,BookController.update);
+routes.delete("/delete/:id",isValidAdmin,BookController.delete);
+
+
 module.exports = routes;

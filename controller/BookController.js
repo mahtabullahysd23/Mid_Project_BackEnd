@@ -1,6 +1,7 @@
 const Book = require("../model/BookClass");
 const response = require("../utility/common");
 const HTTP_STATUS = require("../constants/statusCodes");
+const { validationResult } = require("express-validator");
 
 class BookController {
     async getAll(req, res) {
@@ -65,7 +66,89 @@ class BookController {
             return response(res, HTTP_STATUS.INTERNAL_SERVER_ERROR, "Internal Server Error");
         }
     }
+
+    async getById(req, res) {
+        const bookId = req.params.id;
+        if (bookId.length != 24) {
+            return response(res, HTTP_STATUS.BAD_REQUEST, "Invalid Id");
+        }
+        try {
+            const book = await Book.findById(bookId).populate("reviews").populate("reviews.user", "-__v -_id");
+            if (book) {
+                return response(res, HTTP_STATUS.OK, "Book fetched successfully", book);
+            }
+            return response(res, HTTP_STATUS.NOT_FOUND, "Book not found");
+        } catch (e) {
+            return response(res, HTTP_STATUS.INTERNAL_SERVER_ERROR, "Internal Server Error");
+        }
+    }
+
+    async create(req, res) {
+        try {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return response(res, HTTP_STATUS.BAD_REQUEST, "Validation Error", errors.array());
+            }
+            const {name,price,stock,author,genre,publisher,isbn,pages,language} = req.body;
+            const extISBN = await Book.findOne({isbn});
+            if (extISBN) {
+                return response(res, HTTP_STATUS.CONFLICT, "ISBN already exists");
+            }
+            const created = await Book.create({name,price,stock,author,genre,publisher,isbn,pages,language});
+            if (created) {
+                return response(res, HTTP_STATUS.CREATED, "Book created successfully", created);
+            }
+            return response(res, HTTP_STATUS.BAD_REQUEST, "Book not created");
+        } catch (e) {
+            return response(res, HTTP_STATUS.INTERNAL_SERVER_ERROR, "Internal Server Error");
+        }
+    }
+
+    async update(req, res) {
+
+        const bookId = req.params.id;
+        if (bookId.length != 24) {
+            return response(res, HTTP_STATUS.BAD_REQUEST, "Invalid Id");
+        }
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return response(res, HTTP_STATUS.BAD_REQUEST, "Validation Error", errors.array());
+        }
+        try {
+            const {name,price,stock,author,genre,publisher,isbn,pages,language} = req.body;
+            const extISBN = await Book.findOne({isbn});
+            if (extISBN) {
+                return response(res, HTTP_STATUS.CONFLICT, "ISBN already exists");
+            }
+            const updatedbook= await Book.findByIdAndUpdate(bookId, {name,price,stock,author,genre,publisher,isbn,pages,language});
+            const afterUpdate = await Book.findById(bookId);
+            if (updatedbook) {
+                return response(res, HTTP_STATUS.OK, "Book updated successfully", afterUpdate);
+            }
+            return response(res, HTTP_STATUS.NOT_FOUND, "Book not found");
+        } catch (e) {
+            return response(res, HTTP_STATUS.INTERNAL_SERVER_ERROR, "Internal Server Error");
+        }
+
+    }
     
+    async delete(req, res) {
+
+        const bookId = req.params.id;
+        if (bookId.length != 24) {
+            return response(res, HTTP_STATUS.BAD_REQUEST, "Invalid Id");
+        }
+        try {
+            const deleted = await Book.findByIdAndDelete(bookId);
+            if (deleted) {
+                return response(res, HTTP_STATUS.OK, "Book deleted successfully",deleted);
+            }
+            return response(res, HTTP_STATUS.NOT_FOUND, "Book not found");
+        } catch (e) {
+            return response(res, HTTP_STATUS.INTERNAL_SERVER_ERROR, "Internal Server Error");
+        }
+
+    }
 }
 
 module.exports = new BookController();
