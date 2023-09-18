@@ -6,6 +6,9 @@ const response = require("../utility/common");
 const Wallet = require("../model/WalletClass");
 const HTTP_STATUS = require("../constants/statusCodes");
 const jsonWebtoken = require("jsonwebtoken");
+const sendEmail = require("../utility/sendEmail");
+const ejs = require("ejs");
+const path = require("path");
 
 const currentdate = () => {
   const currentDate = new Date();
@@ -119,6 +122,15 @@ class TransactionController {
             { $inc: { stock: -book.quantity } }
           );
         });
+
+        let transaction = await Transaction.find({_id:created._id}).populate("user","-password -__v -_id -createdAt -updatedAt").populate("books.book","-stock -_id -reviews -createdAt -updatedAt -__v").select({__v:0,createdAt:0,updatedAt:0,cart:0});
+       transaction=transaction[0].toObject();
+        const renderedHtml = await ejs.renderFile(
+          path.join(__dirname, "../views/transactionEmail.ejs"),
+          { transaction }
+        );
+        await sendEmail(req.email, "Purchase Reciept", renderedHtml);
+
         return response(
           res,
           HTTP_STATUS.OK,

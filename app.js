@@ -16,6 +16,9 @@ const ReviewRouter = require("./routers/Review");
 const WalletRouter = require("./routers/Wallet");
 const UserRouter = require("./routers/User"); 
 const DiscountRouter = require("./routers/Discount");
+const path = require("path");
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 
 
 app.use("/api/auth", AuthRouter);

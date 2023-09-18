@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transaction Details</title>
+  <style>
+    /* Add your CSS styles here */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #333;
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    p {
+      color: #666;
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .transaction-details {
+      margin-top: 20px;
+      border-top: 2px solid #ccc;
+      padding-top: 20px;
+    }
+
+    .item {
+      border: 1px solid #ccc;
+      padding: 20px;
+      margin-bottom: 20px;
+      background-color: #f9f9f9;
+      border-radius: 10px;
+      text-align: left;
+    }
+
+    .item-title {
+      font-weight: bold;
+      font-size: 20px;
+    }
+
+    .item-total {
+      font-weight: bold;
+      font-size: 24px;
+      margin-top: 10px;
+      color: #333;
+    }
+
+    .total {
+      margin-top: 20px;
+      font-size: 28px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .status {
+      font-size: 20px;
+      font-weight: bold;
+      margin-top: 20px;
+      color: #00c000;
+    }
+
+    .delivery-address {
+      margin-top: 20px;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Transaction Details</h1>
+    <p>Thank you, <%= transaction.user.name %>, for your purchase. Here are the details of your transaction:</p>
+
+    <div class="transaction-details">
+      <% for (const item of transaction.books) { %>
+        <div class="item">
+          <p class="item-title">Book Name: <%= item.book.name %></p>
+          <p>Quantity: <%= item.quantity %></p>
+          <p>Price per item: $<%= item.price %></p>
+          <p class="item-total">Item Total: $<%= item.price * item.quantity %></p>
+        </div>
+      <% } %>
+
+      <p class="total">Total: $<%= transaction.total %></p>
+    </div>
+
+    <p class="status">Order Status: <%= transaction.status %></p>
+
+    <div class="delivery-address">
+      <h2>Delivery Address</h2>
+      <p><%= transaction.user.address %></p>
+    </div>
+  </div>
+</body>
+</html>

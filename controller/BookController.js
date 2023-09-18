@@ -2,7 +2,7 @@ const Book = require("../model/BookClass");
 const Discount = require("../model/DiscountClass");
 const response = require("../utility/common");
 const HTTP_STATUS = require("../constants/statusCodes");
-const { validationResult } = require("express-validator");
+const { validationResult , query } = require("express-validator");
 const jsonWebtoken = require("jsonwebtoken");
 
 const currentdate = () => {
@@ -37,34 +37,78 @@ class BookController {
       };
       return operators[operator] || {};
     }
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return response(
+        res,
+        HTTP_STATUS.BAD_REQUEST,
+        "Validation Error",
+        errors.array()
+      );
+    }
     try {
       let limit = parseInt(req.query.Limit) || 10;
       let page = parseInt(req.query.Page) || 1;
       let sortBy = req.query.SortBy || "_id";
       let sortDirection = req.query.SortByType === "desc" ? -1 : 1;
       let filters = {};
-
-      // Handle search queries for name or author
       if (req.query.Search) {
         const searchRegex = new RegExp(req.query.Search, "i");
-        filters["$or"] = [{ name: searchRegex }, { author: searchRegex }];
+        filters["$or"] = [{ name: searchRegex }, { author: searchRegex }, { genre: searchRegex }, { publisher: searchRegex }, { isbn: searchRegex }, { language: searchRegex }];
       }
 
-      // Handle filtering by name and author
+     
       if (req.query.Name) {
         filters.name = { $in: req.query.Name };
       }
       if (req.query.Author) {
         filters.author = { $in: req.query.Author };
       }
+      if (req.query.Genre) {
+        filters.genre = { $in: req.query.Genre };
+      }
+      if (req.query.Publisher) {
+        filters.publisher = { $in: req.query.Publisher };
+      }
+      if (req.query.isbn) {
+        filters.isbn = { $in: req.query.isbn };
+      }
+      if (req.query.Language) {
+        filters.language = { $in: req.query.Language };
+      }
 
       // Handle filtering by price and stock
-      if (req.query.Price) {
-        filters.price = getFilterCondition(
-          req.query.priceOperator,
-          parseFloat(req.query.Price)
-        );
+      const sortby = (books)=>
+      {
+        if(req.query.SortBy==="price")
+        {
+          if(req.query.SortByType==="asc")
+          {
+            books.sort((a,b)=>a.price-b.price);
+          }
+          else if(req.query.SortByType==="desc")
+          {
+            books.sort((a,b)=>b.price-a.price);
+          }
+        }
+        return books;
       }
+
+      const  filterBooksByPriceOperator = (arr, operator, value)=> {
+          const operatorsMap = {
+            gt: (a, b) => a > b,
+            gte: (a, b) => a >= b,
+            eq: (a, b) => a === b,
+            lte: (a, b) => a <= b,
+            lt: (a, b) => a < b,
+          };
+          if (operatorsMap[operator]) {
+            return arr.filter(book => operatorsMap[operator](book.price, value));
+          } else {
+            return [];
+          } 
+      }
+
       if (req.query.Stock) {
         filters.stock = getFilterCondition(
           req.query.stockOperator,
@@ -92,6 +136,11 @@ class BookController {
           }
             discounted_books.push(book);
         });
+        if(discounted_books.length>0){
+          discounted_books=sortby(discounted_books);
+        if(req.query.priceOperator&&req.query.Price){
+          discounted_books=filterBooksByPriceOperator(discounted_books,req.query.priceOperator,parseFloat(req.query.Price));
+        }
         return response(res, HTTP_STATUS.OK, "Books fetched successfully", {
           total: count,
           page,
@@ -99,8 +148,9 @@ class BookController {
           onThisPage: books.length,
           discounted_books,
         });
+        }
+        return response(res, HTTP_STATUS.NOT_FOUND, "No books found");
       }
-
       return response(res, HTTP_STATUS.NOT_FOUND, "No books found");
     } catch (e) {
       return response(
