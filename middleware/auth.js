@@ -43,10 +43,10 @@ const isValidUser = ((req, res, next) => {
         const token = req.headers.authorization.split(" ")[1];
         const valid = jsonWebtoken.verify(token, process.env.JWT_KEY)
         const payload = jsonWebtoken.decode(token);
-        console.log();
         if (valid && payload.data.role === 'user' || payload.data.role === 'premium_user' ) {
             req.user=payload.data.user;
             req.role=payload.data.role;
+            req.email=payload.data.email.id;
             next();
         }
         else if(payload.data.role != 'user' && payload.data.role != 'premium_user'){

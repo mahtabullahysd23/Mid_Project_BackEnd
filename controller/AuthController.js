@@ -194,15 +194,15 @@ class Authcontroller {
         { $set: { "email.status": true } }
       );
       if (emailvalidation) {
-        return response(res, HTTP_STATUS.OK, "Email verified");
+        res.render('emailConfirmed');
       }
     } catch (e) {
       if (e instanceof jsonWebtoken.TokenExpiredError) {
-        return res.status(401).send(failure("link expired"));
+        res.render('failedConfirm');
       } else if (e instanceof jsonWebtoken.JsonWebTokenError) {
-        return res.status(401).send(failure("Verification failed"));
+        res.render('failedConfirm');
       }
-      return res.status(500).send(failure("Internal server Error"));
+      res.render('failedConfirm');
     }
   }
 }
