@@ -1,7 +1,4 @@
-const Transaction = require("../model/TransactionClass");
 const Wallet = require("../model/WalletClass");
-const Cart = require("../model/CartClass");
-const Book = require("../model/BookClass");
 const response = require("../utility/common");
 const HTTP_STATUS = require("../constants/statusCodes");
 const jsonWebtoken = require("jsonwebtoken");
