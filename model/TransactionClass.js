@@ -21,6 +21,10 @@ const TransactionSchema = new mongoose.Schema({
                     type: Number,
                     required: [true, "Quantity is required"]
                 },
+                price: {
+                    type: Number,
+                    required: [true, "Price is required"]
+                },
                 _id:false,
             }
         ],

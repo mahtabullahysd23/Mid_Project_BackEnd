@@ -1,10 +1,42 @@
 const Transaction = require("../model/TransactionClass");
 const Cart = require("../model/CartClass");
 const Book = require("../model/BookClass");
+const Discount = require("../model/DiscountClass");
 const response = require("../utility/common");
 const Wallet = require("../model/WalletClass");
 const HTTP_STATUS = require("../constants/statusCodes");
 const jsonWebtoken = require("jsonwebtoken");
+
+const currentdate = () => {
+  const currentDate = new Date();
+  const year = currentDate.getFullYear();
+  const month = String(currentDate.getMonth() + 1).padStart(2, "0");
+  const day = String(currentDate.getDate()).padStart(2, "0");
+  const dateString = `${year}-${month}-${day}`;
+  return dateString;
+};
+
+const modifyCart = async (cart, req) => {
+    try{
+    const book_ids = cart.books.map(book => book.book);
+    const discount = await Discount.find({ books: { $in: book_ids }, startDate: { $lte: currentdate() }, endDate: { $gte: currentdate() }, eligibleRoles: req.role });
+    cart = cart.toObject();
+    const total = cart.books.reduce((accumulator, book) => {
+        const founddiscount = discount.find(discount => discount.books.includes(book.book));
+        const price = founddiscount ? book.discount_price ? book.discount_price:book.base_price: book.base_price;
+        book.price = price;
+        book.Item_total = price * book.quantity;
+        delete book.base_price;
+        delete book.discount_price;
+        return accumulator + price * book.quantity;
+    }, 0);
+    cart.cart_total = total;
+    return cart;
+    }
+    catch(e){
+        console.log(e);
+    }   
+};
 
 class TransactionController {
   async create(req, res) {
@@ -18,8 +50,11 @@ class TransactionController {
       let error = [];
       const user_id = getuserid(req);
       const cart_id = await Cart.findOne({ user: user_id }).select({ _id: 1 });
-      const cart = await Cart.findById(cart_id);
       const wallet = await Wallet.findOne({ user: user_id });
+      let cart = await Cart.findById(cart_id);
+      if(cart){
+        cart = await modifyCart(cart,req);
+      }
       if (!cart || cart.books.length == 0) {
         return response(
           res,
@@ -27,7 +62,7 @@ class TransactionController {
           "You have no items in cart"
         );
       }
-      if (!wallet || cart.total > wallet.balance) {
+      if (!wallet || cart.cart_total > wallet.balance) {
         return response(
           res,
           HTTP_STATUS.BAD_REQUEST,
@@ -57,19 +92,20 @@ class TransactionController {
         cartbooks.push({
           book: book.book,
           quantity: book.quantity,
+          price: book.price,
         });
       });
       const order = {
         user: cart.user,
         cart: cart,
         books: cartbooks,
-        total: cart.total,
+        total: cart.cart_total,
       };
       const created = await Transaction.create(order);
       const decreaseBalance = await Wallet.findOneAndUpdate(
         { user: user_id },
         {
-          $inc: { balance: -cart.total },
+          $inc: { balance: -cart.cart_total },
           $push: { debitTransactions: created._id },
         }
       );

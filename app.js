@@ -27,6 +27,12 @@ app.use("/api/wallet", WalletRouter);
 app.use("/api/user", UserRouter);
 app.use("/api/discount", DiscountRouter);
 
+app.use((err, req, res, next) => {
+  if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
+    return response(res, 400, "Invalid JSON format");
+  }
+  next();
+});
 
 app.use((req, res) => {
     return response(res, 404, "Not Found");

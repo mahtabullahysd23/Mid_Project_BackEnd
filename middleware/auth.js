@@ -9,6 +9,8 @@ const isValidAdmin = ((req, res, next) => {
         const valid = jsonWebtoken.verify(token, process.env.JWT_KEY)
         const payload = jsonWebtoken.decode(token);
         if (valid && payload.data.role === 'admin') {
+            req.user=payload.data.user;
+            req.role=payload.data.role;
             next();
         }
         else if(payload.data.role != 'admin'){
@@ -42,10 +44,12 @@ const isValidUser = ((req, res, next) => {
         const valid = jsonWebtoken.verify(token, process.env.JWT_KEY)
         const payload = jsonWebtoken.decode(token);
         console.log();
-        if (valid && payload.data.role === 'user') {
+        if (valid && payload.data.role === 'user' || payload.data.role === 'premium_user' ) {
+            req.user=payload.data.user;
+            req.role=payload.data.role;
             next();
         }
-        else if(payload.data.role != 'user'){
+        else if(payload.data.role != 'user' && payload.data.role != 'premium_user'){
 
             return response(res, 401, "Unauthorized Access");
         }

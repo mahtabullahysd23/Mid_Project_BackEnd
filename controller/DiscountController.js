@@ -2,7 +2,7 @@ const Discount = require("../model/DiscountClass");
 const Book = require("../model/BookClass");
 const response = require("../utility/common");
 const HTTP_STATUS = require("../constants/statusCodes");
-const { find } = require("../model/BookClass");
+const { validationResult } = require("express-validator");
 
 const currentdate = () => {
   const currentDate = new Date();
@@ -38,6 +38,11 @@ class DiscountController {
 
   async add(req, res) {
     try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return response(res, HTTP_STATUS.BAD_REQUEST, errors.array());
+      }
+
       const {
         description,
         percentage,
@@ -60,6 +65,26 @@ class DiscountController {
           HTTP_STATUS.BAD_REQUEST,
           "End Date must be greater than Start Date"
         );
+      }
+      if (books.length > 0) {
+        const invalidBookIds = books.filter((book) => book.length != 24);
+        if (invalidBookIds.length > 0) {
+          return response(res, HTTP_STATUS.BAD_REQUEST, "Invalid Book Ids", invalidBookIds);
+        }
+        const counts = books.reduce((acc, value) => {
+          acc[value] = (acc[value] || 0) + 1;
+          return acc;
+        }, {});
+        const duplicates = Object.keys(counts).filter((key) => counts[key] > 1);
+        if (duplicates.length > 0) {
+          return response(res, HTTP_STATUS.BAD_REQUEST, "Duplicate Book Ids", duplicates);
+        }
+        const existingBookIds = await Book.find({ _id: books }).select("_id");
+        if (existingBookIds.length != books.length) {
+          const missing = books.filter((book) => !existingBookIds.some((item) => item._id == book));
+          return response(res, HTTP_STATUS.NOT_FOUND, "Some Book not found",missing);
+        }
+
       }
       const discountInfo = await Discount.create({
         description,
@@ -90,9 +115,16 @@ class DiscountController {
 
   async addItem(req, res) {
     try {
+      const validationErrors = validationResult(req);
+      if (!validationErrors.isEmpty()) {
+        return response(res, HTTP_STATUS.BAD_REQUEST, validationErrors.array());
+      }
       const discountId = req.params.id;
       if (discountId.length != 24) {
         return response(res, HTTP_STATUS.BAD_REQUEST, "Invalid Id");
+      }
+      if (!req.body.book && !req.body.eligibleCountries && !req.body.eligibleRoles) {
+        return response(res, HTTP_STATUS.BAD_REQUEST, "No data Provided");
       }
       const { book, eligibleCountries, eligibleRoles } = req.body;
       const extbook = await Book.find({ _id: book });
@@ -104,9 +136,9 @@ class DiscountController {
         return response(res, HTTP_STATUS.NOT_FOUND, "Discount not found");
       }
       const bookExist = discount.books.find((item) => item == book);
-        if (bookExist) {
-            return response(res, HTTP_STATUS.CONFLICT, "Book already exists");
-        }
+      if (bookExist) {
+        return response(res, HTTP_STATUS.CONFLICT, "Book already exists");
+      }
       const discountInfo = await Discount.findByIdAndUpdate(discountId, {
         $push: {
           books: book,
@@ -138,6 +170,10 @@ class DiscountController {
       const discountId = req.params.id;
       if (discountId.length != 24) {
         return response(res, HTTP_STATUS.BAD_REQUEST, "Invalid Id");
+      }
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return response(res, HTTP_STATUS.BAD_REQUEST, errors.array());
       }
       const {
         description,
