@@ -325,6 +325,190 @@ const bookValidator = {
       .isString().withMessage('Language must be a string'),
   ],
 };
+const balanceValidator = {
+  add: [
+    body('amount')
+      .exists().withMessage('Amount was not provided')
+      .bail()
+      .isNumeric().withMessage('Amount must be a number')
+      .bail()
+      .isFloat({ min: 1}).withMessage('Amount cannot be negative or zero')
+      .bail()
+      .isFloat({ max: 100000}).withMessage('Amount cannot be more than 100k')
+      .bail()
+      .isLength({ max: 10 })
+      .withMessage("Too long input"),
+  ]
+}
 
-
-module.exports = { authvalidator, cartValidator, reviewValidator , userValidator, bookValidator };
+const discountValidator = {
+  add: [
+    body('description')
+      .exists().withMessage('Description was not provided')
+      .bail()
+      .notEmpty().withMessage('Description cannot be empty')
+      .bail()
+      .isString().withMessage('Description must be a string')
+      .bail()
+      .isLength({ max: 30 }).withMessage('Description cannot be more than 30 characters'),
+    body('percentage')
+      .exists().withMessage('Percentage was not provided')
+      .bail()
+      .isNumeric().withMessage('Percentage must be a number')
+      .bail()
+      .isFloat({ min: 1, max: 99 }).withMessage('Percentage must be between 1 and 100'),
+    body('eligibleRoles')
+      .exists().withMessage('Eligible Roles was not provided')
+      .bail()
+      .notEmpty().withMessage('Eligible Roles cannot be empty')
+      .bail()
+      .isArray().withMessage('Eligible Roles must be an array')
+      .bail()
+      .isIn(['premium_user', 'user']).withMessage('Eligible Roles must be either admin or user')
+      .bail()
+      .custom((value) => {
+        if (value.length === 0) {
+          throw new Error('Eligible Roles must contain at least one role')
+        }
+        return true
+      }),
+    body('eligibleCountries')
+      .exists().withMessage('Eligible Countries was not provided')
+      .bail()
+      .notEmpty().withMessage('Eligible Countries cannot be empty')
+      .bail()
+      .isArray().withMessage('Eligible Countries must be an array')
+      .bail()
+      .custom((value) => {
+        if (value.length === 0) {
+          throw new Error('Eligible Countries must contain at least one country')
+        }
+        return true
+      }),
+    body('startDate')
+      .exists().withMessage('Start Date was not provided')
+      .bail()
+      .notEmpty().withMessage('Start Date cannot be empty')
+      .bail()
+      .isDate().withMessage('Start Date must be a date'),
+    body('endDate')
+      .exists().withMessage('End Date was not provided')
+      .bail()
+      .notEmpty().withMessage('End Date cannot be empty')
+      .bail()
+      .isDate().withMessage('End Date must be a date'),
+      body('books')
+      .optional()
+      .bail()
+      .notEmpty().withMessage('Books cannot be empty')
+      .bail()
+      .isArray().withMessage('Books must be an array')
+      .bail()
+      .custom((value) => {
+        if (value.length === 0) {
+          throw new Error('Books must contain at least one book')
+        }
+        return true
+      }),
+  ],
+  addConstraint: [
+    body('book')
+      .optional()
+      .bail()
+      .notEmpty().withMessage('Books cannot be empty')
+      .bail()
+      .isString().withMessage('Book must be a string')
+      .bail()
+      .isMongoId().withMessage('Book must be a valid mongo id'),
+    body('eligibleRoles')
+      .optional()
+      .bail()
+      .notEmpty().withMessage('Eligible Roles cannot be empty')
+      .bail()
+      .isLength({ max: 30 }).withMessage('Eligible Roles cannot be more than 30 characters')
+      .custom((value) => {
+        if(value!="user"||value!="premium_user"){
+          throw new Error('Eligible Roles must be either premium_user or user')
+        }
+      }),
+    body('eligibleCountries')
+      .optional()
+      .bail()
+      .notEmpty().withMessage('Eligible Countries cannot be empty')
+      .bail()
+      .isLength({ max: 30 }).withMessage('Eligible Countries cannot be more than 30 characters')
+    ],
+    update: [
+      body('description')
+        .optional()
+        .bail()
+        .notEmpty().withMessage('Description cannot be empty')
+        .bail()
+        .isString().withMessage('Description must be a string')
+        .bail()
+        .isLength({ max: 30 }).withMessage('Description cannot be more than 30 characters'),
+      body('percentage')
+        .optional()
+        .bail()
+        .isNumeric().withMessage('Percentage must be a number')
+        .bail()
+        .isFloat({ min: 1, max: 99 }).withMessage('Percentage must be between 1 and 100'),
+      body('eligibleRoles')
+        .optional()
+        .bail()
+        .notEmpty().withMessage('Eligible Roles cannot be empty')
+        .bail()
+        .isArray().withMessage('Eligible Roles must be an array')
+        .bail()
+        .isIn(['premium_user', 'user']).withMessage('Eligible Roles must be either admin or user')
+        .bail()
+        .custom((value) => {
+          if (value.length === 0) {
+            throw new Error('Eligible Roles must contain at least one role')
+          }
+          return true
+        }
+      ),
+      body('eligibleCountries')
+        .optional()
+        .bail()
+        .notEmpty().withMessage('Eligible Countries cannot be empty')
+        .bail()
+        .isArray().withMessage('Eligible Countries must be an array')
+        .bail()
+        .custom((value) => {
+          if (value.length === 0) {
+            throw new Error('Eligible Countries must contain at least one country')
+          }
+          return true
+        }
+      ),
+      body('startDate')
+        .optional()
+        .bail()
+        .notEmpty().withMessage('Start Date cannot be empty')
+        .bail()
+        .isDate().withMessage('Start Date must be a date'),
+      body('endDate')
+        .optional()
+        .bail()
+        .notEmpty().withMessage('End Date cannot be empty')
+        .bail()
+        .isDate().withMessage('End Date must be a date'),
+        body('books')
+        .optional()
+        .bail()
+        .notEmpty().withMessage('Books cannot be empty')
+        .bail()
+        .isArray().withMessage('Books must be an array')
+        .bail()
+        .custom((value) => {
+          if (value.length === 0) {
+            throw new Error('Books must contain at least one book')
+          }
+          return true
+        }
+      ),
+    ],
+  }
+module.exports = { authvalidator, cartValidator, reviewValidator , userValidator, bookValidator,balanceValidator,discountValidator};

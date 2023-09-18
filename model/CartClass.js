@@ -19,13 +19,18 @@ const CartSchema = new mongoose.Schema(
                         type: Number,
                         required: [true, "Quantity is required"]
                     },
+                    base_price: {
+                        type: Number,
+                        required: [true, "Base Price is required"]
+                    },
+                    discount_price: {
+                        type: Number,
+                        default: 0,
+                        required:false
+                    },
                     _id:false,
                 }
             ],
-        },
-        total: {
-            type: Number,
-            required: true
         }
     },
     {

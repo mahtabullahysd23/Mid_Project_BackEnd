@@ -2,6 +2,7 @@ const Wallet = require("../model/WalletClass");
 const response = require("../utility/common");
 const HTTP_STATUS = require("../constants/statusCodes");
 const jsonWebtoken = require("jsonwebtoken");
+const { validationResult } = require("express-validator");
 
 class WalletController{
     async add(req,res){
@@ -11,6 +12,11 @@ class WalletController{
             return decoded.data.user._id;
         }
         try{
+
+            const errors = validationResult(req);
+            if(!errors.isEmpty()){
+                return response(res,HTTP_STATUS.BAD_REQUEST,"Validation Error",errors.array());
+            }
             const user_id = getuserid(req);
             const wallet = await Wallet.findOne({user:user_id});
             if(!wallet){

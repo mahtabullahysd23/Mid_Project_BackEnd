@@ -4,7 +4,6 @@ const response = require("../utility/common");
 const HTTP_STATUS = require("../constants/statusCodes");
 const { validationResult } = require("express-validator");
 const jsonWebtoken = require("jsonwebtoken");
-const { get } = require("mongoose");
 
 const currentdate = () => {
     const currentDate = new Date();
@@ -72,27 +71,24 @@ class BookController {
           parseInt(req.query.Stock)
         );
       }
-
       const count = await Book.countDocuments(filters);
       const books = await Book.find(filters)
         .sort({ [sortBy]: sortDirection })
         .skip((page - 1) * limit)
         .limit(limit).select("-__v -reviews");
-      
-
       if (books.length > 0) {
         const book_ids = books.map((book) => book._id);
         const discount = await Discount.find({ books: { $in: book_ids }, startDate: { $lte: currentdate() }, endDate: { $gte: currentdate() },eligibleRoles:getUserrole(req)});
         let discounted_books = [];
         books.forEach((book) => {
-          const book_discount = discount.find((discount) =>
+          const book_discount = discount.filter((discount) =>
             discount.books.includes(book._id)
           );
-          if (book_discount) {
+          if (book_discount.length > 0) {
             book.price =
-              book.price - (book.price * book_discount.percentage) / 100;
+              book.price - (book.price * book_discount[book_discount.length-1].percentage) / 100;
             book = book.toObject();
-            book = { ...book, discount: book_discount.percentage+"%" };
+            book = { ...book, discount: book_discount[book_discount.length-1].percentage+"%" };
           }
             discounted_books.push(book);
         });
