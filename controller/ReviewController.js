@@ -4,15 +4,9 @@ const Tran = require("../model/TransactionClass");
 const response = require("../utility/common");
 const { validationResult } = require("express-validator");
 const HTTP_STATUS = require("../constants/statusCodes");
-const jsonWebtoken = require("jsonwebtoken");
 
 class ReviewController {
   async add(req, res) {
-    function getuserid(req) {
-      const token = req.header("Authorization").replace("Bearer ", "");
-      const decoded = jsonWebtoken.decode(token);
-      return decoded.data.user._id;
-    }
     try {
       let newrating = null;
       let newreview = null;
@@ -32,7 +26,7 @@ class ReviewController {
       if (review.review) {
         newreview = review.review;
       }
-      review.user = getuserid(req);
+      review.user = req.user;
       const extBook = await Book.findById({ _id: review.book });
       const extpurchaseBook = await Tran.findOne({
         user: review.user,
@@ -143,7 +137,7 @@ class ReviewController {
           }
         }
         if (updatedReview) {
-          const updated = await Review.findById({ _id: extReview._id });
+          const updated = await Review.findById({ _id: extReview._id }).select("-user -__v");
           return response(
             res,
             HTTP_STATUS.OK,
@@ -186,6 +180,8 @@ class ReviewController {
           { $set: { rating: newRating } }
         );
       }
+      delete savedReview.user;
+      delete savedReview.__v;
       if (savedReview && updatedBook) {
         return response(
           res,

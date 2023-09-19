@@ -427,7 +427,7 @@ const discountValidator = {
       .withMessage("Eligible Roles must be an array")
       .bail()
       .isIn(["premium_user", "user"])
-      .withMessage("Eligible Roles must be either admin or user")
+      .withMessage("Eligible Roles must be either premium_user or user")
       .bail()
       .custom((value) => {
         if (value.length === 0) {
@@ -507,11 +507,9 @@ const discountValidator = {
       .bail()
       .isLength({ max: 30 })
       .withMessage("Eligible Roles cannot be more than 30 characters")
-      .custom((value) => {
-        if (value != "user" || value != "premium_user") {
-          throw new Error("Eligible Roles must be either premium_user or user");
-        }
-      }),
+      .bail()
+      .isIn(["premium_user", "user"])
+      .withMessage("Eligible Roles must be either premium_user or user"),
     body("eligibleCountries")
       .optional()
       .bail()
@@ -551,7 +549,7 @@ const discountValidator = {
       .withMessage("Eligible Roles must be an array")
       .bail()
       .isIn(["premium_user", "user"])
-      .withMessage("Eligible Roles must be either admin or user")
+      .withMessage("Eligible Roles must be either premium_user or user")
       .bail()
       .custom((value) => {
         if (value.length === 0) {
@@ -619,7 +617,10 @@ const filterValiator = {
       .withMessage("Limit cannot be empty")
       .bail()
       .isInt({ min: 1 })
-      .withMessage("Limit must be a positive integer"),
+      .withMessage("Limit must be a positive integer")
+      .bail()
+      .isLength({ max: 10 })
+      .withMessage("Too long input"),
     query("Page")
       .optional()
       .bail()
@@ -627,7 +628,10 @@ const filterValiator = {
       .withMessage("Page cannot be empty")
       .bail()
       .isInt({ min: 1 })
-      .withMessage("Page must be a positive integer"),
+      .withMessage("Page must be a positive integer")
+      .bail()
+      .isLength({ max: 10 })
+      .withMessage("Too long input"),
     query("SortBy")
       .optional()
       .bail()
@@ -699,15 +703,30 @@ const filterValiator = {
       .optional()
       .bail()
       .notEmpty()
-      .withMessage("Language cannot be empty"),
+      .withMessage("Language cannot be empty")
+      .bail()
+      .isLength({ max: 10 })
+      .withMessage("Too long input"),
     query("Stock")
       .optional()
       .bail()
       .notEmpty()
       .withMessage("Stock cannot be empty")
       .bail()
+      .isLength({ max: 10 })
+      .withMessage("Too long input")
       .isInt({ min: 0 })
       .withMessage("Stock must be a non-negative integer"),
+    query("stockOperator")
+      .optional()
+      .bail()
+      .notEmpty()
+      .withMessage("StockOperator cannot be empty")
+      .bail()
+      .isIn(["gt", "gte", "eq", "lte", "lt"])
+      .withMessage(
+        "StockOperator must be one of the following: gt, gte, eq, lte, lt"
+      ),
     query("Price")  
       .optional()
       .bail()
@@ -715,9 +734,11 @@ const filterValiator = {
       .withMessage("Price cannot be empty")
       .bail()
       .isInt({ min: 0 })
-      .withMessage("Price must be a non-negative integer"),
-    query("PriceOperator")
-        
+      .withMessage("Price must be a non-negative integer")
+      .bail()
+      .isLength({ max: 10 })
+      .withMessage("Too long input"),
+    query("priceOperator") 
       .optional()
       .bail()
       .notEmpty()
@@ -729,6 +750,7 @@ const filterValiator = {
       ),
   ],
 };
+
 module.exports = {
   authvalidator,
   cartValidator,
@@ -737,5 +759,5 @@ module.exports = {
   bookValidator,
   balanceValidator,
   discountValidator,
-  filterValiator,
+  filterValiator
 };

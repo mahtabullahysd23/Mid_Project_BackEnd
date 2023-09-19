@@ -2,6 +2,7 @@ const User = require("../model/UserClass");
 const response = require("../utility/common");
 const HTTP_STATUS = require("../constants/statusCodes");
 const { validationResult } = require("express-validator");
+const mongoose = require("mongoose");
 
 
 class UserController {
@@ -9,7 +10,7 @@ class UserController {
     try {
       let page = parseInt(req.query.page) || 1;
       let limit = parseInt(req.query.limit) || 10;
-      const users = await User.find()
+      const users = await User.find().select("-__v")
         .skip((page - 1) * limit)
         .limit(limit);
       if (users.length > 0) {
@@ -28,10 +29,11 @@ class UserController {
 
   async getUserById(req, res) {
     try {
-      if (req.params.id.length != 24) {
+      const user_id =req.params.id
+      if (!mongoose.Types.ObjectId.isValid(user_id)) {
         return response(res, HTTP_STATUS.BAD_REQUEST, "Invalid Id");
       }
-      const user = await User.findById(req.params.id);
+      const user = await User.findById(user_id).select("-__v");
       if (user) {
         return response(
           res,
@@ -58,7 +60,7 @@ class UserController {
         );
       }
       const user_id = req.params.id;
-      if (user_id.length != 24) {
+      if (!mongoose.Types.ObjectId.isValid(user_id)) {
         return response(res, HTTP_STATUS.BAD_REQUEST, "Invalid Id");
       }
       const {name,address}=req.body;
@@ -79,10 +81,10 @@ class UserController {
     async deleteUser(req, res) {
         try {
             const user_id = req.params.id;
-            if (user_id.length != 24) {
-                return response(res, HTTP_STATUS.BAD_REQUEST, "Invalid Id");
+            if (!mongoose.Types.ObjectId.isValid(user_id)) {
+              return response(res, HTTP_STATUS.BAD_REQUEST, "Invalid Id");
             }
-            const userDeleted = await User.findByIdAndDelete(user_id);
+            const userDeleted = await User.findByIdAndDelete(user_id).select("-__v");
             if (userDeleted) {
                 return response(res, HTTP_STATUS.OK, "User Deleted Successfully", userDeleted);
             }

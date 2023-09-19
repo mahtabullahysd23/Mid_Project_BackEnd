@@ -4,15 +4,8 @@ const response = require("../utility/common");
 const HTTP_STATUS = require("../constants/statusCodes");
 const { validationResult , query } = require("express-validator");
 const jsonWebtoken = require("jsonwebtoken");
-
-const currentdate = () => {
-    const currentDate = new Date();
-    const year = currentDate.getFullYear();
-    const month = String(currentDate.getMonth() + 1).padStart(2, "0");
-    const day = String(currentDate.getDate()).padStart(2, "0");
-    const dateString = `${year}-${month}-${day}`;
-    return dateString;
-}
+const {currentdate} = require("../utility/functions");
+const mongoose = require("mongoose");
 const getUserrole = (req) => {  
     try{
         const token = req.header("Authorization").replace("Bearer ", "");
@@ -57,6 +50,15 @@ class BookController {
         filters["$or"] = [{ name: searchRegex }, { author: searchRegex }, { genre: searchRegex }, { publisher: searchRegex }, { isbn: searchRegex }, { language: searchRegex }];
       }
 
+      if(req.query.SortBy && !req.query.SortByType || req.query.SortByType && !req.query.SortBy){
+        return response(res, HTTP_STATUS.BAD_REQUEST, "SortBy and SortByType both are required");
+      }
+      if(req.query.Price && !req.query.priceOperator || req.query.priceOperator && !req.query.Price){
+        return response(res, HTTP_STATUS.BAD_REQUEST, "price and priceOperator both are required");
+      }
+      if(req.query.Stock && !req.query.stockOperator || req.query.stockOperator && !req.query.Stock){
+        return response(res, HTTP_STATUS.BAD_REQUEST, "Stock and stockOperator both are required");
+      }
      
       if (req.query.Name) {
         filters.name = { $in: req.query.Name };
@@ -146,7 +148,7 @@ class BookController {
           page,
           limit,
           onThisPage: books.length,
-          discounted_books,
+          books:discounted_books,
         });
         }
         return response(res, HTTP_STATUS.NOT_FOUND, "No books found");
@@ -163,7 +165,7 @@ class BookController {
 
   async getById(req, res) {
     const bookId = req.params.id;
-    if (bookId.length != 24) {
+    if (!mongoose.Types.ObjectId.isValid(bookId)) {
       return response(res, HTTP_STATUS.BAD_REQUEST, "Invalid Id");
     }
     try {
@@ -209,7 +211,7 @@ class BookController {
       if (extISBN) {
         return response(res, HTTP_STATUS.CONFLICT, "ISBN already exists");
       }
-      const created = await Book.create({
+      let created = await Book.create({
         name,
         price,
         stock,
@@ -220,6 +222,9 @@ class BookController {
         pages,
         language,
       });
+      created=created.toObject();
+      delete created.__v;
+      delete created.reviews;
       if (created) {
         return response(
           res,
@@ -240,7 +245,7 @@ class BookController {
 
   async update(req, res) {
     const bookId = req.params.id;
-    if (bookId.length != 24) {
+    if (!mongoose.Types.ObjectId.isValid(bookId)) {
       return response(res, HTTP_STATUS.BAD_REQUEST, "Invalid Id");
     }
     const errors = validationResult(req);
@@ -279,7 +284,7 @@ class BookController {
         pages,
         language,
       });
-      const afterUpdate = await Book.findById(bookId);
+      const afterUpdate = await Book.findById(bookId).select("-__v -reviews");
       if (updatedbook) {
         return response(
           res,
@@ -300,11 +305,11 @@ class BookController {
 
   async delete(req, res) {
     const bookId = req.params.id;
-    if (bookId.length != 24) {
+    if (!mongoose.Types.ObjectId.isValid(bookId)) {
       return response(res, HTTP_STATUS.BAD_REQUEST, "Invalid Id");
     }
     try {
-      const deleted = await Book.findByIdAndDelete(bookId);
+      const deleted = await Book.findByIdAndDelete(bookId).select("-__v -reviews");
       if (deleted) {
         return response(
           res,

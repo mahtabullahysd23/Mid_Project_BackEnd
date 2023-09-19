@@ -1,5 +1,5 @@
 const nodemailer = require('nodemailer');
-const sendEmail = async (email,subject,html) => {
+const sendEmail = (email,subject,html) => {
     try {
         const transporter = nodemailer.createTransport({
             service: 'gmail',
@@ -14,7 +14,7 @@ const sendEmail = async (email,subject,html) => {
             subject: subject,
             html: html
         };
-        const info = await transporter.sendMail(mailOptions);
+        const info = transporter.sendMail(mailOptions);
         return info;
     } catch (e) {
         throw e;
