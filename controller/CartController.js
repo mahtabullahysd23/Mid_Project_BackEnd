@@ -7,7 +7,7 @@ const HTTP_STATUS = require('../constants/statusCodes');
 const {currentdate}=require('../utility/functions')
 
 const discountedPrice = async (book_id, req) => {
-    const discount = await Discount.find({ books: book_id, startDate: { $lte: currentdate() }, endDate: { $gte: currentdate() }, eligibleRoles: req.role });
+    const discount = await Discount.find({ books: book_id, startDate: { $lte: currentdate() }, endDate: { $gte: currentdate() }, eligibleRoles: req.role,eligibleCountries:req.country});
     if (discount.length > 0) {
         return discount[discount.length-1].percentage;
     }
@@ -17,7 +17,7 @@ const discountedPrice = async (book_id, req) => {
 const modifyCart = async (cart, req) => {
     try{
     const book_ids = cart.books.map(book => book.book);
-    const discount = await Discount.find({ books: { $in: book_ids }, startDate: { $lte: currentdate() }, endDate: { $gte: currentdate() }, eligibleRoles: req.role });
+    const discount = await Discount.find({ books: { $in: book_ids }, startDate: { $lte: currentdate() }, endDate: { $gte: currentdate() }, eligibleRoles: req.role ,eligibleCountries:req.country});
     cart = cart.toObject();
     const total = cart.books.reduce((accumulator, book) => {
         const founddiscount = discount.find(discount => discount.books.includes(book.book));
@@ -109,7 +109,6 @@ class CartController {
             }
         }
         catch (e) {
-            console.log(e);
             return response(res, HTTP_STATUS.INTERNAL_SERVER_ERROR, "Internal Server Error");
         }
     }

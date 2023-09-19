@@ -3036,3 +3036,1704 @@ Request:{
     "statusCode": 404
 }
 Error: undefined 
+
+Wed Sep 20 2023 00:04:45 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/transaction/checkout
+Request:{
+    "Method": "POST",
+    "statusMessage": "Bad Request",
+    "statusCode": 400
+}
+Error: undefined 
+
+Wed Sep 20 2023 00:05:19 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/books/6503ca7c7b5d0c3b40186154
+Request:{
+    "Method": "GET",
+    "statusMessage": "Not Found",
+    "statusCode": 404
+}
+Error: undefined 
+
+Wed Sep 20 2023 00:05:27 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/books
+Request:{
+    "Method": "GET",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 00:05:37 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/books/6505e5ae289620c2b64abf29
+Request:{
+    "Method": "GET",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 00:05:55 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/books
+Request:{
+    "Method": "GET",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 00:06:04 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/books/6505e5ae289620c2b64abf29
+Request:{
+    "Method": "GET",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 00:06:36 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/books/6505e5ae289620c2b64abf29
+Request:{
+    "Method": "GET",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 00:08:07 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/books/6505e5ae289620c2b64abf29
+Request:{
+    "Method": "GET",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 00:08:37 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/books
+Request:{
+    "Method": "GET",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 00:10:38 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/books
+Request:{
+    "Method": "GET",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 00:10:44 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/books/6505e5ae289620c2b64abf29
+Request:{
+    "Method": "GET",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 00:10:47 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/books/6505e5ae289620c2b64abf29
+Request:{
+    "Method": "GET",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 00:12:29 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/books/6505e5ae289620c2b64abf29
+Request:{
+    "Method": "GET",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 00:12:31 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/books/6505e5ae289620c2b64abf29
+Request:{
+    "Method": "GET",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 00:14:16 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/books/6505e5ae289620c2b64abf29
+Request:{
+    "Method": "GET",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 00:14:47 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/books/6505e5ae289620c2b64abf29
+Request:{
+    "Method": "GET",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 00:16:46 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/books/6505e5ae289620c2b64abf29
+Request:{
+    "Method": "GET",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 00:56:38 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/reviews/post
+Request:{
+    "Method": "POST",
+    "statusMessage": "Bad Request",
+    "statusCode": 400
+}
+Error: undefined 
+
+Wed Sep 20 2023 00:56:54 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/auth/login
+Request:{
+    "Method": "POST",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 00:57:12 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/reviews/post
+Request:{
+    "Method": "POST",
+    "statusMessage": "Bad Request",
+    "statusCode": 400
+}
+Error: undefined 
+
+Wed Sep 20 2023 00:57:18 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/transaction/view
+Request:{
+    "Method": "GET",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 00:57:57 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/reviews/post
+Request:{
+    "Method": "POST",
+    "statusMessage": "Bad Request",
+    "statusCode": 400
+}
+Error: undefined 
+
+Wed Sep 20 2023 00:58:25 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/reviews/post
+Request:{
+    "Method": "POST",
+    "statusMessage": "Bad Request",
+    "statusCode": 400
+}
+Error: undefined 
+
+Wed Sep 20 2023 00:58:37 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/reviews/post
+Request:{
+    "Method": "POST",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 00:59:00 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/books
+Request:{
+    "Method": "GET",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 00:59:11 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/reviews/post
+Request:{
+    "Method": "POST",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 00:59:14 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/reviews/post
+Request:{
+    "Method": "POST",
+    "statusMessage": "Bad Request",
+    "statusCode": 400
+}
+Error: undefined 
+
+Wed Sep 20 2023 00:59:26 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/reviews/post
+Request:{
+    "Method": "POST",
+    "statusMessage": "Bad Request",
+    "statusCode": 400
+}
+Error: undefined 
+
+Wed Sep 20 2023 00:59:45 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/reviews/post
+Request:{
+    "Method": "POST",
+    "statusMessage": "Bad Request",
+    "statusCode": 400
+}
+Error: undefined 
+
+Wed Sep 20 2023 00:59:52 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/reviews/post
+Request:{
+    "Method": "POST",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 00:59:58 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/books
+Request:{
+    "Method": "GET",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 01:00:33 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/reviews/post
+Request:{
+    "Method": "POST",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 01:00:37 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/books
+Request:{
+    "Method": "GET",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 01:00:50 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/reviews/post
+Request:{
+    "Method": "POST",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 01:00:54 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/books
+Request:{
+    "Method": "GET",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 01:01:10 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/reviews/post
+Request:{
+    "Method": "POST",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 01:07:08 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/reviews/delete
+Request:{
+    "Method": "DELETE",
+    "statusMessage": "Bad Request",
+    "statusCode": 400
+}
+Error: undefined 
+
+Wed Sep 20 2023 01:08:08 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/reviews/post
+Request:{
+    "Method": "POST",
+    "statusMessage": "Bad Request",
+    "statusCode": 400
+}
+Error: undefined 
+
+Wed Sep 20 2023 01:08:26 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/reviews/delete/6509c9e95cbc2da48f81911e
+Request:{
+    "Method": "DELETE",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 01:08:34 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/books
+Request:{
+    "Method": "GET",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 01:08:44 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/reviews/post
+Request:{
+    "Method": "POST",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 01:08:48 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/books
+Request:{
+    "Method": "GET",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 01:08:52 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/reviews/delete/6509c9e95cbc2da48f81911e
+Request:{
+    "Method": "DELETE",
+    "statusMessage": "Bad Request",
+    "statusCode": 400
+}
+Error: undefined 
+
+Wed Sep 20 2023 01:09:02 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/reviews/delete/
+Request:{
+    "Method": "DELETE",
+    "statusMessage": "Not Found",
+    "statusCode": 404
+}
+Error: undefined 
+
+Wed Sep 20 2023 01:09:07 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/reviews/delete/6509c9e95cbc2da48f81911
+Request:{
+    "Method": "DELETE",
+    "statusMessage": "Bad Request",
+    "statusCode": 400
+}
+Error: undefined 
+
+Wed Sep 20 2023 01:10:09 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/books?Limit=%2210%22
+Request:{
+    "Method": "GET",
+    "statusMessage": "Bad Request",
+    "statusCode": 400
+}
+Error: undefined 
+
+Wed Sep 20 2023 01:14:23 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/transaction/all?page=3&limit=2
+Request:{
+    "Method": "GET",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 01:14:35 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/transaction/all?page=3&limit=2fghhhhhhhhhhhhhhhhhhhhhh
+Request:{
+    "Method": "GET",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 01:15:16 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/transaction/all?page=3&limit=2fghhhhhhhhhhhhhhhhhhhhhh
+Request:{
+    "Method": "GET",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 01:15:21 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/transaction/all?page=3&limit=2fghhhhhhhhhhhhhhhhhhhhhh
+Request:{
+    "Method": "GET",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 01:16:45 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/transaction/all?page=3&limit=2fghhhhhhhhhhhhhhhhhhhhhh
+Request:{
+    "Method": "GET",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 01:18:55 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/discount/all?page=1&limit=5
+Request:{
+    "Method": "GET",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 01:18:57 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/discount/all?page=1&limit=5ghjghjghj
+Request:{
+    "Method": "GET",
+    "statusMessage": "Bad Request",
+    "statusCode": 400
+}
+Error: undefined 
+
+Wed Sep 20 2023 01:19:01 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/discount/all?page=1ghjghjghj&limit=5ghjghjghj
+Request:{
+    "Method": "GET",
+    "statusMessage": "Bad Request",
+    "statusCode": 400
+}
+Error: undefined 
+
+Wed Sep 20 2023 01:20:40 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/transaction/all?page=3&limit=2fghhhhhhhhhhhhhhhhhhhhhh
+Request:{
+    "Method": "GET",
+    "statusMessage": "Internal Server Error",
+    "statusCode": 500
+}
+Error: undefined 
+
+Wed Sep 20 2023 01:20:42 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/transaction/all?page=3&limit=2fghhhhhhhhhhhhhhhhhhhhhh
+Request:{
+    "Method": "GET",
+    "statusMessage": "Internal Server Error",
+    "statusCode": 500
+}
+Error: undefined 
+
+Wed Sep 20 2023 01:21:42 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/transaction/all?page=3&limit=2fghhhhhhhhhhhhhhhhhhhhhh
+Request:{
+    "Method": "GET",
+    "statusMessage": "Bad Request",
+    "statusCode": 400
+}
+Error: undefined 
+
+Wed Sep 20 2023 01:21:47 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/transaction/all?page=3jkhjkhjkhj&limit=2fghhhhhhhhhhhhhhhhhhhhhh
+Request:{
+    "Method": "GET",
+    "statusMessage": "Bad Request",
+    "statusCode": 400
+}
+Error: undefined 
+
+Wed Sep 20 2023 01:22:41 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/all?page=1dfsdfsdfsdfsdfsdfs&limit=5
+Request:{
+    "Method": "GET",
+    "statusMessage": "Bad Request",
+    "statusCode": 400
+}
+Error: undefined 
+
+Wed Sep 20 2023 01:22:45 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/all?page=1dfsdfsdfsdfsdfsdfs&limit=5sdfsdfsdfsdf
+Request:{
+    "Method": "GET",
+    "statusMessage": "Bad Request",
+    "statusCode": 400
+}
+Error: undefined 
+
+Wed Sep 20 2023 01:22:54 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/all?page=1&limit=5
+Request:{
+    "Method": "GET",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 01:30:14 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/cart/add
+Request:{
+    "Method": "POST",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 01:30:22 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/books?Limit=%2210%22
+Request:{
+    "Method": "GET",
+    "statusMessage": "Bad Request",
+    "statusCode": 400
+}
+Error: undefined 
+
+Wed Sep 20 2023 01:30:29 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/books
+Request:{
+    "Method": "GET",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 01:30:48 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/cart/add
+Request:{
+    "Method": "POST",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 01:31:15 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/transaction/checkout
+Request:{
+    "Method": "POST",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 01:31:25 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/books
+Request:{
+    "Method": "GET",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 01:48:50 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/books
+Request:{
+    "Method": "GET",
+    "statusMessage": "Internal Server Error",
+    "statusCode": 500
+}
+Error: undefined 
+
+Wed Sep 20 2023 01:49:48 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/books
+Request:{
+    "Method": "GET",
+    "statusMessage": "Internal Server Error",
+    "statusCode": 500
+}
+Error: undefined 
+
+Wed Sep 20 2023 01:50:54 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/books
+Request:{
+    "Method": "GET",
+    "statusMessage": "Internal Server Error",
+    "statusCode": 500
+}
+Error: undefined 
+
+Wed Sep 20 2023 01:51:44 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/books
+Request:{
+    "Method": "GET",
+    "statusMessage": "Internal Server Error",
+    "statusCode": 500
+}
+Error: undefined 
+
+Wed Sep 20 2023 01:52:20 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/books
+Request:{
+    "Method": "GET",
+    "statusMessage": "Internal Server Error",
+    "statusCode": 500
+}
+Error: undefined 
+
+Wed Sep 20 2023 01:53:25 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/books
+Request:{
+    "Method": "GET",
+    "statusMessage": "Internal Server Error",
+    "statusCode": 500
+}
+Error: undefined 
+
+Wed Sep 20 2023 02:02:12 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/auth/signup
+Request:{
+    "Method": "POST",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 02:03:28 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/auth/signup
+Request:{
+    "Method": "POST",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 02:13:28 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/auth/login
+Request:{
+    "Method": "POST",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 02:13:44 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/books
+Request:{
+    "Method": "GET",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 02:13:59 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/discount/all?page=1ghjghjghj&limit=5ghjghjghj
+Request:{
+    "Method": "GET",
+    "statusMessage": "Bad Request",
+    "statusCode": 400
+}
+Error: undefined 
+
+Wed Sep 20 2023 02:14:04 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/discount/all
+Request:{
+    "Method": "GET",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 02:14:47 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/transaction/all?page=3&limit=2
+Request:{
+    "Method": "GET",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 02:14:55 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/discount/all
+Request:{
+    "Method": "GET",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 02:17:47 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/discount/all
+Request:{
+    "Method": "GET",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 02:18:26 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/discount/addItem/6509b9bd42ccc7819f18e845
+Request:{
+    "Method": "PATCH",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 02:18:30 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/books
+Request:{
+    "Method": "GET",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 02:18:37 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/books/6505e5ae289620c2b64abf29
+Request:{
+    "Method": "GET",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 02:21:56 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/cart/add
+Request:{
+    "Method": "POST",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 02:22:41 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/cart/add
+Request:{
+    "Method": "POST",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 02:22:49 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/cart/view
+Request:{
+    "Method": "GET",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 02:23:02 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/discount/addItem/6509b9bd42ccc7819f18e845
+Request:{
+    "Method": "PATCH",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 02:23:06 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/cart/add
+Request:{
+    "Method": "POST",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 02:23:14 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/transaction/checkout
+Request:{
+    "Method": "POST",
+    "statusMessage": "Bad Request",
+    "statusCode": 400
+}
+Error: undefined 
+
+Wed Sep 20 2023 02:23:22 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/wallet/add
+Request:{
+    "Method": "POST",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 02:23:32 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/transaction/checkout
+Request:{
+    "Method": "POST",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 02:29:08 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/reviews/delete/6509c9e95cbc2da48f81911e
+Request:{
+    "Method": "DELETE",
+    "statusMessage": "Bad Request",
+    "statusCode": 400
+}
+Error: undefined 
+
+Wed Sep 20 2023 02:34:38 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/reviews/delete/65084cd93efa2452ef2a87d5
+Request:{
+    "Method": "DELETE",
+    "statusMessage": "Unauthorized",
+    "statusCode": 401
+}
+Error: undefined 
+
+Wed Sep 20 2023 02:34:49 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/reviews/post
+Request:{
+    "Method": "POST",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 02:35:09 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/reviews/delete/65084cd93efa2452ef2a87d5
+Request:{
+    "Method": "DELETE",
+    "statusMessage": "Unauthorized",
+    "statusCode": 401
+}
+Error: undefined 
+
+Wed Sep 20 2023 02:35:13 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/reviews/delete/650a05e849af8e75e8ab6243
+Request:{
+    "Method": "DELETE",
+    "statusMessage": "Unauthorized",
+    "statusCode": 401
+}
+Error: undefined 
+
+Wed Sep 20 2023 02:35:18 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/reviews/delete/650a05e849af8e75e8ab6243
+Request:{
+    "Method": "DELETE",
+    "statusMessage": "Unauthorized",
+    "statusCode": 401
+}
+Error: undefined 
+
+Wed Sep 20 2023 02:36:47 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/reviews/post
+Request:{
+    "Method": "POST",
+    "statusMessage": "Bad Request",
+    "statusCode": 400
+}
+Error: undefined 
+
+Wed Sep 20 2023 02:36:51 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/reviews/delete/650a05e849af8e75e8ab6243
+Request:{
+    "Method": "DELETE",
+    "statusMessage": "Unauthorized",
+    "statusCode": 401
+}
+Error: undefined 
+
+Wed Sep 20 2023 02:37:00 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/reviews/post
+Request:{
+    "Method": "POST",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 02:37:38 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/reviews/delete/650a05e849af8e75e8ab6243
+Request:{
+    "Method": "DELETE",
+    "statusMessage": "Unauthorized",
+    "statusCode": 401
+}
+Error: undefined 
+
+Wed Sep 20 2023 02:38:10 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/reviews/delete/650a05e849af8e75e8ab6243
+Request:{
+    "Method": "DELETE",
+    "statusMessage": "Unauthorized",
+    "statusCode": 401
+}
+Error: undefined 
+
+Wed Sep 20 2023 02:38:38 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/reviews/delete/650a05e849af8e75e8ab6243
+Request:{
+    "Method": "DELETE",
+    "statusMessage": "Unauthorized",
+    "statusCode": 401
+}
+Error: undefined 
+
+Wed Sep 20 2023 02:39:56 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/reviews/delete/650a05e849af8e75e8ab6243
+Request:{
+    "Method": "DELETE",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 02:41:08 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/reviews/post
+Request:{
+    "Method": "POST",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 02:41:16 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/reviews/delete/650a05e849af8e75e8ab6243
+Request:{
+    "Method": "DELETE",
+    "statusMessage": "Not Found",
+    "statusCode": 404
+}
+Error: undefined 
+
+Wed Sep 20 2023 02:41:31 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/books
+Request:{
+    "Method": "GET",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 02:44:17 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/books?Limit=fffffffffffffffffffffffffffffffffffffff
+Request:{
+    "Method": "GET",
+    "statusMessage": "Bad Request",
+    "statusCode": 400
+}
+Error: undefined 
+
+Wed Sep 20 2023 02:44:27 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/books?Limit=10000000000000000000000000000000000000000000000000
+Request:{
+    "Method": "GET",
+    "statusMessage": "Bad Request",
+    "statusCode": 400
+}
+Error: undefined 
+
+Wed Sep 20 2023 02:44:34 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/books?Limit=10000000000000000000000000000000000000000000000000&Page=1111111111111111111111111111111111
+Request:{
+    "Method": "GET",
+    "statusMessage": "Bad Request",
+    "statusCode": 400
+}
+Error: undefined 
+
+Wed Sep 20 2023 02:44:40 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/books?Limit=10000000000000000000000000000000000000000000000000&Page=1111111111111111111111111111111111&SortBy=dsfgdfgdfg
+Request:{
+    "Method": "GET",
+    "statusMessage": "Bad Request",
+    "statusCode": 400
+}
+Error: undefined 
+
+Wed Sep 20 2023 02:44:59 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/books?Limit=10000000000000000000000000000000000000000000000000&Page=1111111111111111111111111111111111&SortBy=%22%22&SortByType=%22%22
+Request:{
+    "Method": "GET",
+    "statusMessage": "Bad Request",
+    "statusCode": 400
+}
+Error: undefined 
+
+Wed Sep 20 2023 02:45:04 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/books?Limit=10000000000000000000000000000000000000000000000000&Page=1111111111111111111111111111111111&SortBy=%22%22&SortByType=000
+Request:{
+    "Method": "GET",
+    "statusMessage": "Bad Request",
+    "statusCode": 400
+}
+Error: undefined 
+
+Wed Sep 20 2023 02:45:53 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/books?Limit=10000000000000000000000000000000000000000000000000&Page=1111111111111111111111111111111111&SortBy=%22%22&SortByType=000&sdfsdsdfsdf
+Request:{
+    "Method": "GET",
+    "statusMessage": "Bad Request",
+    "statusCode": 400
+}
+Error: undefined 
+
+Wed Sep 20 2023 02:46:29 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/cart/add
+Request:{
+    "Method": "POST",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 02:46:35 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/cart/add
+Request:{
+    "Method": "POST",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 02:46:40 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/books?Limit=10000000000000000000000000000000000000000000000000&Page=1111111111111111111111111111111111
+Request:{
+    "Method": "GET",
+    "statusMessage": "Bad Request",
+    "statusCode": 400
+}
+Error: undefined 
+
+Wed Sep 20 2023 02:46:45 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/books
+Request:{
+    "Method": "GET",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 02:46:55 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/cart/add
+Request:{
+    "Method": "POST",
+    "statusMessage": "Bad Request",
+    "statusCode": 400
+}
+Error: undefined 
+
+Wed Sep 20 2023 02:47:03 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/cart/add
+Request:{
+    "Method": "POST",
+    "statusMessage": "Bad Request",
+    "statusCode": 400
+}
+Error: undefined 
+
+Wed Sep 20 2023 02:47:21 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/cart/add
+Request:{
+    "Method": "POST",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 02:47:34 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/cart/remove
+Request:{
+    "Method": "PATCH",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 02:47:37 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/cart/remove
+Request:{
+    "Method": "PATCH",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 02:47:39 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/cart/remove
+Request:{
+    "Method": "PATCH",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 02:47:47 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/cart/remove
+Request:{
+    "Method": "PATCH",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 02:47:52 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/cart/remove
+Request:{
+    "Method": "PATCH",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 02:47:55 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/cart/remove
+Request:{
+    "Method": "PATCH",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 02:47:58 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/cart/remove
+Request:{
+    "Method": "PATCH",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 02:59:52 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/delete/6509fe8e5c405cbea2d4932c
+Request:{
+    "Method": "DELETE",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 03:00:13 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/auth/login
+Request:{
+    "Method": "POST",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 03:00:49 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/auth/login
+Request:{
+    "Method": "POST",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 03:00:52 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/delete/6509fe8e5c405cbea2d4932c
+Request:{
+    "Method": "DELETE",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 03:01:39 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/auth/login
+Request:{
+    "Method": "POST",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 03:03:15 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/delete/6509fe8e5c405cbea2d4932c
+Request:{
+    "Method": "DELETE",
+    "statusMessage": "Not Found",
+    "statusCode": 404
+}
+Error: undefined 
+
+Wed Sep 20 2023 03:03:31 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/delete/6509fe8e5c405cbea2d4932c
+Request:{
+    "Method": "DELETE",
+    "statusMessage": "Not Found",
+    "statusCode": 404
+}
+Error: undefined 
+
+Wed Sep 20 2023 03:03:32 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/delete/6509fe8e5c405cbea2d4932c
+Request:{
+    "Method": "DELETE",
+    "statusMessage": "Not Found",
+    "statusCode": 404
+}
+Error: undefined 
+
+Wed Sep 20 2023 03:03:33 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/delete/6509fe8e5c405cbea2d4932c
+Request:{
+    "Method": "DELETE",
+    "statusMessage": "Not Found",
+    "statusCode": 404
+}
+Error: undefined 
+
+Wed Sep 20 2023 03:03:35 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/delete/6509fe8e5c405cbea2d4932c
+Request:{
+    "Method": "DELETE",
+    "statusMessage": "Not Found",
+    "statusCode": 404
+}
+Error: undefined 
+
+Wed Sep 20 2023 03:03:37 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/delete/6509fe8e5c405cbea2d4932c
+Request:{
+    "Method": "DELETE",
+    "statusMessage": "Not Found",
+    "statusCode": 404
+}
+Error: undefined 
+
+Wed Sep 20 2023 03:04:43 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/delete/6509fe8e5c405cbea2d4932c
+Request:{
+    "Method": "DELETE",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 03:05:05 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/auth/login
+Request:{
+    "Method": "POST",
+    "statusMessage": "Bad Request",
+    "statusCode": 400
+}
+Error: undefined 
+
+Wed Sep 20 2023 03:07:30 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/delete/6509fe8e5c405cbea2d4932c
+Request:{
+    "Method": "DELETE",
+    "statusMessage": "Internal Server Error",
+    "statusCode": 500
+}
+Error: undefined 
+
+Wed Sep 20 2023 03:07:33 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/delete/6509fe8e5c405cbea2d4932c
+Request:{
+    "Method": "DELETE",
+    "statusMessage": "Internal Server Error",
+    "statusCode": 500
+}
+Error: undefined 
+
+Wed Sep 20 2023 03:07:57 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/delete/6509fe8e5c405cbea2d4932c
+Request:{
+    "Method": "DELETE",
+    "statusMessage": "Internal Server Error",
+    "statusCode": 500
+}
+Error: undefined 
+
+Wed Sep 20 2023 03:08:15 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/delete/6509fe8e5c405cbea2d4932c
+Request:{
+    "Method": "DELETE",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 03:09:17 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/delete/6509fe8e5c405cbea2d4932c
+Request:{
+    "Method": "DELETE",
+    "statusMessage": "Internal Server Error",
+    "statusCode": 500
+}
+Error: undefined 
+
+Wed Sep 20 2023 03:09:41 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/delete/6509fe8e5c405cbea2d4932c
+Request:{
+    "Method": "DELETE",
+    "statusMessage": "Internal Server Error",
+    "statusCode": 500
+}
+Error: undefined 
+
+Wed Sep 20 2023 03:11:28 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/delete/6509fe8e5c405cbea2d4932c
+Request:{
+    "Method": "DELETE",
+    "statusMessage": "Internal Server Error",
+    "statusCode": 500
+}
+Error: undefined 
+
+Wed Sep 20 2023 03:12:34 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/delete/6509fe8e5c405cbea2d4932c
+Request:{
+    "Method": "DELETE",
+    "statusMessage": "Internal Server Error",
+    "statusCode": 500
+}
+Error: undefined 
+
+Wed Sep 20 2023 03:17:39 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/delete/6509fe8e5c405cbea2d4932c
+Request:{
+    "Method": "DELETE",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 03:17:56 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/delete/6509fe8e5c405cbea2d4932c
+Request:{
+    "Method": "DELETE",
+    "statusMessage": "Internal Server Error",
+    "statusCode": 500
+}
+Error: undefined 
+
+Wed Sep 20 2023 03:19:26 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/delete/6509fe8e5c405cbea2d4932c
+Request:{
+    "Method": "DELETE",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 03:20:14 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/delete/6509fe8e5c405cbea2d4932c
+Request:{
+    "Method": "DELETE",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 03:20:18 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/delete/6509fe8e5c405cbea2d4932c
+Request:{
+    "Method": "DELETE",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 03:22:46 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/delete/6509fe8e5c405cbea2d4932c
+Request:{
+    "Method": "DELETE",
+    "statusMessage": "Not Found",
+    "statusCode": 404
+}
+Error: undefined 
+
+Wed Sep 20 2023 03:30:40 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/update/6502ddf57f83f50839f8b7a1
+Request:{
+    "Method": "PATCH",
+    "statusMessage": "Not Found",
+    "statusCode": 404
+}
+Error: undefined 
+
+Wed Sep 20 2023 03:30:59 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/update/6509201fc4deaae3e82ff823
+Request:{
+    "Method": "PATCH",
+    "statusMessage": "Not Found",
+    "statusCode": 404
+}
+Error: undefined 
+
+Wed Sep 20 2023 03:32:32 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/update/6509201fc4deaae3e82ff823
+Request:{
+    "Method": "PATCH",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 03:33:42 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/update/6509201fc4deaae3e82ff823
+Request:{
+    "Method": "PATCH",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 03:34:34 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/update/6509201fc4deaae3e82ff823
+Request:{
+    "Method": "PATCH",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 03:34:44 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/update/6509201fc4deaae3e82ff821
+Request:{
+    "Method": "PATCH",
+    "statusMessage": "Not Found",
+    "statusCode": 404
+}
+Error: undefined 
+
+Wed Sep 20 2023 03:34:49 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/update/6509201fc4deaae3e82ff823
+Request:{
+    "Method": "PATCH",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 03:39:44 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/update/6509201fc4deaae3e82ff823
+Request:{
+    "Method": "PATCH",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 03:41:05 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/update/6509201fc4deaae3e82ff823
+Request:{
+    "Method": "PATCH",
+    "statusMessage": "Bad Request",
+    "statusCode": 400
+}
+Error: undefined 
+
+Wed Sep 20 2023 03:41:48 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/update/6509201fc4deaae3e82ff823
+Request:{
+    "Method": "PATCH",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 03:45:50 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/update/6509201fc4deaae3e82ff823
+Request:{
+    "Method": "PATCH",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 03:47:39 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/update/6509201fc4deaae3e82ff823
+Request:{
+    "Method": "PATCH",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 03:48:07 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/update/6509201fc4deaae3e82ff823
+Request:{
+    "Method": "PATCH",
+    "statusMessage": "Bad Request",
+    "statusCode": 400
+}
+Error: undefined 
+
+Wed Sep 20 2023 03:49:29 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/update/6509fe8e5c405cbea2d4932c
+Request:{
+    "Method": "PATCH",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 03:50:11 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/update/6509201fc4deaae3e82ff823
+Request:{
+    "Method": "PATCH",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 03:50:22 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/update/6502ddf57f83f50839f8b7a1
+Request:{
+    "Method": "PATCH",
+    "statusMessage": "Not Found",
+    "statusCode": 404
+}
+Error: undefined 
+
+Wed Sep 20 2023 03:50:30 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/update/6509201fc4deaae3e82ff823
+Request:{
+    "Method": "PATCH",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 03:51:28 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/update/6509201fc4deaae3e82ff823
+Request:{
+    "Method": "PATCH",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 03:53:17 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/update/6509201fc4deaae3e82ff823
+Request:{
+    "Method": "PATCH",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 03:54:01 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/update/6509201fc4deaae3e82ff823
+Request:{
+    "Method": "PATCH",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 03:54:34 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/update/6509201fc4deaae3e82ff823
+Request:{
+    "Method": "PATCH",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 03:54:37 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/update/6509201fc4deaae3e82ff823
+Request:{
+    "Method": "PATCH",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 03:56:06 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/update/6509201fc4deaae3e82ff823
+Request:{
+    "Method": "PATCH",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 03:56:11 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/update/6509201fc4deaae3e82ff823
+Request:{
+    "Method": "PATCH",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 03:56:14 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/update/6509201fc4deaae3e82ff823
+Request:{
+    "Method": "PATCH",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 03:56:53 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/update/6509201fc4deaae3e82ff823
+Request:{
+    "Method": "PATCH",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 03:57:04 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/update/6509201fc4deaae3e82ff823
+Request:{
+    "Method": "PATCH",
+    "statusMessage": "Bad Request",
+    "statusCode": 400
+}
+Error: undefined 
+
+Wed Sep 20 2023 03:57:11 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/update/6509201fc4deaae3e82ff823
+Request:{
+    "Method": "PATCH",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 03:57:16 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/update/6509201fc4deaae3e82ff823
+Request:{
+    "Method": "PATCH",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 03:58:35 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/update/6509201fc4deaae3e82ff823
+Request:{
+    "Method": "PATCH",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 03:58:46 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/update/6509201fc4deaae3e82ff823
+Request:{
+    "Method": "PATCH",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+
+
+Wed Sep 20 2023 03:59:27 GMT+0600 (Bangladesh Standard Time)
+Endpoint : /api/user/update/6509fe8e5c405cbea2d4932c
+Request:{
+    "Method": "PATCH",
+    "statusMessage": "OK",
+    "statusCode": 200
+}
+

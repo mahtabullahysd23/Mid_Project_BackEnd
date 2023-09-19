@@ -6,5 +6,6 @@ const {isValidAdmin} = require("../middleware/auth")
 const ReviewController = require("../controller/ReviewController");
 
 routes.post("/post",isValidUser,reviewValidator.add,ReviewController.add);
+routes.delete("/delete/:id",isValidUser,ReviewController.delete);
 
 module.exports = routes;

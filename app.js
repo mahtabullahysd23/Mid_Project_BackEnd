@@ -19,7 +19,7 @@ const DiscountRouter = require("./routers/Discount");
 const path = require("path");
 const morgan = require('morgan')
 const fs = require('fs');
-const { error } = require("console");
+
 
 var accessLogStream = fs.createWriteStream(path.join(__dirname, 'server.log'), { flags: 'a' })
 function myCustomFormat(token,req, res,) {
@@ -43,7 +43,7 @@ if (res.statusCode >= 400) {
 
   return logMessage;
 }
-app.use(morgan((myCustomFormat), { stream: accessLogStream }))
+app.use(morgan((myCustomFormat), { stream: accessLogStream }));
 
 
 app.set('view engine', 'ejs');

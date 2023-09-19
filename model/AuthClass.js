@@ -27,6 +27,10 @@ const AuthSchema = new mongoose.Schema({
         ref: "User",
         required: true
     },
+    country:{
+        type:String,
+        required:false
+    },
     attempt:{
         type: Number,
         default:0,
@@ -39,6 +43,10 @@ const AuthSchema = new mongoose.Schema({
     unloackTime:{
         type:Date,
         default:0
+    },
+    banned:{
+        type:Boolean,
+        default:false
     }
 });
 

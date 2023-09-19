@@ -5,16 +5,16 @@ const Discount = require("../model/DiscountClass");
 const response = require("../utility/common");
 const Wallet = require("../model/WalletClass");
 const HTTP_STATUS = require("../constants/statusCodes");
-const jsonWebtoken = require("jsonwebtoken");
 const sendEmail = require("../utility/sendEmail");
 const ejs = require("ejs");
 const path = require("path");
 const {currentdate}=require("../utility/functions");
+const { validationResult } = require("express-validator");
 
 const modifyCart = async (cart, req) => {
     try{
     const book_ids = cart.books.map(book => book.book);
-    const discount = await Discount.find({ books: { $in: book_ids }, startDate: { $lte: currentdate() }, endDate: { $gte: currentdate() }, eligibleRoles: req.role });
+    const discount = await Discount.find({ books: { $in: book_ids }, startDate: { $lte: currentdate() }, endDate: { $gte: currentdate() }, eligibleRoles: req.role ,eligibleCountries:req.country});
     cart = cart.toObject();
     const total = cart.books.reduce((accumulator, book) => {
         const founddiscount = discount.find(discount => discount.books.includes(book.book));
@@ -105,12 +105,13 @@ class TransactionController {
       delete resData.updatedAt;
       if (created && decreaseBalance) {
         await Cart.deleteOne({ _id: cart_id });
-        cart.books.forEach(async (book) => {
-          await Book.updateOne(
-            { _id: book.book },
-            { $inc: { stock: -book.quantity } }
-          );
-        });
+        const updateOperations = cart.books.map((book) => ({
+          updateOne: {
+            filter: { _id: book.book },
+            update: { $inc: { stock: -book.quantity } },
+          },
+        }));
+        await Book.bulkWrite(updateOperations);
 
         let transaction = await Transaction.find({_id:created._id}).populate("user","-password -__v -_id -createdAt -updatedAt").populate("books.book","-stock -_id -reviews -createdAt -updatedAt -__v").select({__v:0,createdAt:0,updatedAt:0,cart:0});
        transaction=transaction[0].toObject();
@@ -165,6 +166,15 @@ class TransactionController {
 
   async getAllTransactions(req, res) {
     try{
+      const error = validationResult(req);
+      if (!error.isEmpty()) {
+        return response(
+          res,
+          HTTP_STATUS.BAD_REQUEST,
+          "Validation Error",
+          error.array()
+        );
+      }
         let page = parseInt(req.query.page)||1;
         let limit = parseInt(req.query.limit)||10;
         const transactions = await Transaction.find({}).populate("user","-password -__v -_id -createdAt -updatedAt").populate("books.book","-stock -_id -reviews -createdAt -updatedAt -__v").select({__v:0,createdAt:0,updatedAt:0,cart:0})
