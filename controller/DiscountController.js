@@ -10,9 +10,13 @@ const mongoose = require("mongoose");
 class DiscountController {
   async getAll(req, res) {
     try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return response(res, HTTP_STATUS.BAD_REQUEST, errors.array());
+      }
       let page = parseInt(req.query.page) || 1;
       let limit = parseInt(req.query.limit) || 10;
-      const discounts = await Discount.find()
+      const discounts = await Discount.find().select("-__v")
         .skip((page - 1) * limit)
         .limit(limit);
       if (discounts.length > 0) {

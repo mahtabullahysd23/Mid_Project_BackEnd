@@ -28,6 +28,9 @@ class Authcontroller {
       if (!user) {
         return response(res, HTTP_STATUS.BAD_REQUEST, "Invalid Credentials");
       }
+      if(user.banned){
+        return response(res, HTTP_STATUS.BAD_REQUEST, "You are banned from the system");
+      }
       const match = bcrypt.compare(password, user.password);
       if (!match) {
         const updateAttempt = await Auth.findOneAndUpdate(
@@ -116,7 +119,7 @@ class Authcontroller {
         );
       }
 
-      const { name, email, address, password } = req.body;
+      const { name, email, address, password,country } = req.body;
 
       const existEmail = await Auth.findOne({ "email.id": email });
 
@@ -129,7 +132,8 @@ class Authcontroller {
 
           const updatedAuth = await Auth.findOneAndUpdate(
             { "email.id": email },
-            { $set: { password: hash } }
+            { $set: { password: hash } },
+            { $set:{ country:country } }
           );
 
           const updateUser = await User.findOneAndUpdate(
@@ -159,6 +163,7 @@ class Authcontroller {
           email: { id: email},
           password: hash,
           user: user._id,
+          country:country
         });
         const sent = await sendVerifyEmail(email, name);
 

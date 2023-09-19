@@ -4,6 +4,7 @@ const Tran = require("../model/TransactionClass");
 const response = require("../utility/common");
 const { validationResult } = require("express-validator");
 const HTTP_STATUS = require("../constants/statusCodes");
+const mongoose = require("mongoose");
 
 class ReviewController {
   async add(req, res) {
@@ -58,35 +59,11 @@ class ReviewController {
           );
         }
         if (newrating == null && newreview == null) {
-          const deletereview = await Review.deleteOne({ _id: extReview._id });
-          const updatedBook = await Book.updateOne(
-            { _id: review.book },
-            { $pull: { reviews: extReview._id } }
+          return response(
+            res,
+            HTTP_STATUS.BAD_REQUEST,
+            "Please provide rating or review"
           );
-          if (extReview.rating != null) {
-            const totalreviews = await Review.countDocuments({
-              book: review.book,
-              rating: { $ne: null },
-            });
-            const currentrating = extBook.rating;
-            const newRating =
-              (currentrating * (totalreviews + 1) - extReview.rating) /
-              totalreviews;
-            if (isNaN(newRating)) {
-              await Book.updateOne(
-                { _id: review.book },
-                { $set: { rating: 0 } }
-              );
-            } else {
-              await Book.updateOne(
-                { _id: review.book },
-                { $set: { rating: newRating } }
-              );
-            }
-          }
-          if (deletereview && updatedBook) {
-            return response(res, HTTP_STATUS.OK, "Review deleted successfully");
-          }
         }
         const updatedReview = await Review.updateOne(
           { user: review.user, book: review.book },
@@ -162,7 +139,7 @@ class ReviewController {
         review: newreview,
       };
       const newReview = new Review(reviewitem);
-      const savedReview = await newReview.save();
+      let savedReview = await newReview.save();
       const updatedBook = await Book.updateOne(
         { _id: review.book },
         { $push: { reviews: savedReview._id } }
@@ -180,6 +157,7 @@ class ReviewController {
           { $set: { rating: newRating } }
         );
       }
+      savedReview = savedReview.toObject();
       delete savedReview.user;
       delete savedReview.__v;
       if (savedReview && updatedBook) {
@@ -205,37 +183,62 @@ class ReviewController {
     }
   }
 
-  //     async getAll(req, res) {
-
-  //         try {
-  //             const reviews = await Review.find({});
-  //             if (reviews) {
-  //                 return res.status(200).send(success("successfully Received all reviews", reviews));
-  //             }
-  //             return res.status(404).send(failure("reviews not found"));
-
-  //         }
-  //         catch (e) {
-  //             console.log(e);
-  //             return res.status(500).send(failure("Internal Server Error", e));
-  //         }
-
-  //     }
-
-  //     async getByID(req, res) {
-  //         try {
-  //             const review = await Review.findById({ _id: req.params.id }).populate('user').populate('book','-rating -reviews -stock');
-  //             if (review) {
-  //                 return res.status(200).send(success("successfully Received review", review));
-  //             }
-  //             return res.status(404).send(failure("review not found"));
-
-  //         }
-  //         catch (e) {
-  //             console.log(e);
-  //             return res.status(500).send(failure("Internal Server Error", e));
-  //         }
-
-  //     }
+  async delete (req, res) {
+    try{
+      const review_id = req.params.id;
+      if (!mongoose.Types.ObjectId.isValid(review_id)) {
+        return response(res, HTTP_STATUS.BAD_REQUEST, "Invalid Id");
+      }
+      const review = await Review.findById({ _id: review_id });
+      if (!review) {
+        return response(res, HTTP_STATUS.NOT_FOUND, "Review not found");
+      }
+      if (review.user != req.user._id) {
+        console.log(review.user);
+        console.log(req.user);
+        return response(
+          res,
+          HTTP_STATUS.UNAUTHORIZED,
+          "You are not authorized to delete this review"
+        );
+      }
+        const deletereview = await Review.findByIdAndDelete({ _id: review_id });
+        const updatedBook = await Book.findByIdAndUpdate(
+          { _id: deletereview.book },
+          { $pull: { reviews: review_id } }
+        );
+        if (deletereview.rating != null) {
+          const totalreviews = await Review.countDocuments({
+            book: deletereview.book,
+            rating: { $ne: null },
+          });
+          const currentrating = updatedBook.rating;
+          const newRating =
+            (currentrating * (totalreviews + 1) - deletereview.rating) /
+            totalreviews;
+          if (isNaN(newRating)) {
+            await Book.updateOne(
+              { _id: deletereview.book },
+              { $set: { rating: 0 } }
+            );
+          } else {
+            await Book.updateOne(
+              { _id: deletereview.book },
+              { $set: { rating: newRating } }
+            );
+          }
+        }
+        if (deletereview && updatedBook) {
+          return response(res, HTTP_STATUS.OK, "Review deleted successfully");
+        }
+      }
+    catch(err){
+      return response(
+        res,
+        HTTP_STATUS.INTERNAL_SERVER_ERROR,
+        "Internal Server Error"
+      );
+    }
+  }
 }
 module.exports = new ReviewController();

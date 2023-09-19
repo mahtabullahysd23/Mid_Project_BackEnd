@@ -2,7 +2,7 @@ const Book = require("../model/BookClass");
 const Discount = require("../model/DiscountClass");
 const response = require("../utility/common");
 const HTTP_STATUS = require("../constants/statusCodes");
-const { validationResult , query } = require("express-validator");
+const { validationResult } = require("express-validator");
 const jsonWebtoken = require("jsonwebtoken");
 const {currentdate} = require("../utility/functions");
 const mongoose = require("mongoose");
@@ -11,11 +11,20 @@ const getUserrole = (req) => {
         const token = req.header("Authorization").replace("Bearer ", "");
         const decoded = jsonWebtoken.decode(token);
         return decoded.data.role;
-
     }
     catch(e){
         return null;
     } 
+}
+const getUsercountry = (req) => {  
+  try{
+      const token = req.header("Authorization").replace("Bearer ", "");
+      const decoded = jsonWebtoken.decode(token);
+      return decoded.data.country;
+  }
+  catch(e){
+      return null;
+  } 
 }
 
 class BookController {
@@ -124,7 +133,7 @@ class BookController {
         .limit(limit).select("-__v -reviews");
       if (books.length > 0) {
         const book_ids = books.map((book) => book._id);
-        const discount = await Discount.find({ books: { $in: book_ids }, startDate: { $lte: currentdate() }, endDate: { $gte: currentdate() },eligibleRoles:getUserrole(req)});
+        const discount = await Discount.find({ books: { $in: book_ids }, startDate: { $lte: currentdate() }, endDate: { $gte: currentdate() },eligibleRoles:getUserrole(req),eligibleCountries:getUsercountry(req)});
         let discounted_books = [];
         books.forEach((book) => {
           const book_discount = discount.filter((discount) =>
@@ -164,15 +173,29 @@ class BookController {
   }
 
   async getById(req, res) {
+    const discountedPrice = async (book_id, req) => {
+      const discount = await Discount.find({ books: { $in: book_id }, startDate: { $lte: currentdate() }, endDate: { $gte: currentdate() }, eligibleRoles: getUserrole(req),eligibleCountries:getUsercountry(req)});
+      if (discount.length > 0) {
+          return discount[discount.length-1].percentage;
+      }
+      return 0;
+  }
     const bookId = req.params.id;
     if (!mongoose.Types.ObjectId.isValid(bookId)) {
       return response(res, HTTP_STATUS.BAD_REQUEST, "Invalid Id");
     }
     try {
+
       const book = await Book.findById(bookId)
         .populate("reviews")
         .populate("reviews.user", "-__v -_id");
+
       if (book) {
+        const discount = await discountedPrice(bookId, req);
+        if (discount>0) {
+          book.price = book.price - (book.price * discount) / 100;
+          book.discount = discount+"%";
+        }
         return response(res, HTTP_STATUS.OK, "Book fetched successfully", book);
       }
       return response(res, HTTP_STATUS.NOT_FOUND, "Book not found");

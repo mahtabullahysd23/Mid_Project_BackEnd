@@ -1,5 +1,5 @@
 const express = require("express");
-const { bookValidator,filterValiator } = require("../middleware/validation");
+const { bookValidator,filterValiator } = require("../middleware/Validation");
 const {isValidAdmin} = require("../middleware/auth")
 const routes = express();
 const BookController = require("../controller/BookController");

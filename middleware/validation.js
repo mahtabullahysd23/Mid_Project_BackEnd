@@ -195,6 +195,17 @@ const userValidator = {
       .withMessage("Address must be a string")
       .isLength({ max: 30 })
       .withMessage("Address cannot be more than 30 characters"),
+    body("role")
+      .optional()
+      .bail()
+      .notEmpty()
+      .withMessage("Role cannot be empty")
+      .bail()
+      .isString()
+      .withMessage("Role must be a string")
+      .bail()
+      .isIn(["user", "premium_user"])
+      .withMessage("Role must be either user or admin"),
   ],
 };
 
@@ -751,6 +762,33 @@ const filterValiator = {
   ],
 };
 
+const pagelimitValidator = {
+  pageLimit : [
+    query("limit")
+      .optional()
+      .bail()
+      .notEmpty()
+      .withMessage("Limit cannot be empty")
+      .bail()
+      .isInt({ min: 1 })
+      .withMessage("Limit must be a positive integer")
+      .bail()
+      .isLength({ max: 10 })
+      .withMessage("Too long input"),
+    query("page")
+      .optional()
+      .bail()
+      .notEmpty()
+      .withMessage("Page cannot be empty")
+      .bail()
+      .isInt({ min: 1 })
+      .withMessage("Page must be a positive integer")
+      .bail()
+      .isLength({ max: 10 })
+      .withMessage("Too long input"),
+  ]
+}
+
 module.exports = {
   authvalidator,
   cartValidator,
@@ -759,5 +797,6 @@ module.exports = {
   bookValidator,
   balanceValidator,
   discountValidator,
-  filterValiator
+  filterValiator,
+  pagelimitValidator
 };

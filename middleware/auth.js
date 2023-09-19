@@ -46,6 +46,7 @@ const isValidUser = ((req, res, next) => {
         if (valid && payload.data.role === 'user' || payload.data.role === 'premium_user' ) {
             req.user=payload.data.user;
             req.role=payload.data.role;
+            req.country=payload.data.country;
             req.email=payload.data.email.id;
             next();
         }
