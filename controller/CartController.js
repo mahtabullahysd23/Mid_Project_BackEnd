@@ -4,16 +4,7 @@ const Discount = require('../model/DiscountClass');
 const response = require('../utility/common');
 const { validationResult } = require("express-validator");
 const HTTP_STATUS = require('../constants/statusCodes');
-const jsonWebtoken = require('jsonwebtoken');
-
-const currentdate = () => {
-    const currentDate = new Date();
-    const year = currentDate.getFullYear();
-    const month = String(currentDate.getMonth() + 1).padStart(2, "0");
-    const day = String(currentDate.getDate()).padStart(2, "0");
-    const dateString = `${year}-${month}-${day}`;
-    return dateString;
-}
+const {currentdate}=require('../utility/functions')
 
 const discountedPrice = async (book_id, req) => {
     const discount = await Discount.find({ books: book_id, startDate: { $lte: currentdate() }, endDate: { $gte: currentdate() }, eligibleRoles: req.role });
@@ -94,7 +85,7 @@ class CartController {
                 if (await Cart.findOne({ user: cart.user, "books.book": cart.book })) {
                     const updated = await Cart.updateOne({ user: cart.user, "books.book": cart.book }, { $inc: { "books.$.quantity": cart.quantity },$set: { "books.$.base_price": extBook.price,"books.$.discount_price": discount_price } } );
                     if (updated) {
-                        const mycart = await Cart.findOne({ user: cart.user });
+                        const mycart = await Cart.findOne({ user: cart.user }).select('-user -__v');
                         return response(res, HTTP_STATUS.OK, "successfully Added to cart", await modifyCart(mycart, req));
                     }
                     return response(res, HTTP_STATUS.NOT_FOUND, "Cart not updated");
@@ -102,7 +93,7 @@ class CartController {
                 else {
                     const updated = await Cart.updateOne({ user: cart.user }, { $push: { books: cartitem.books } });
                     if (updated) {
-                        const mycart = await Cart.findOne({ user: cart.user });
+                        const mycart = await Cart.findOne({ user: cart.user }).select('-user -__v');
                         return response(res, HTTP_STATUS.OK, "successfully Added to cart", await modifyCart(mycart, req));
                     }
                     return response(res, HTTP_STATUS.NOT_FOUND, "Cart not updated");
@@ -111,8 +102,8 @@ class CartController {
             else {
                 const created = await Cart.create(cartitem);
                 if (created) {
-                    modifyCart(created.toObject());
-                    return response(res, HTTP_STATUS.OK, "successfully Added to cart", await modifyCart(created, req));
+                    const mycart = await Cart.findOne({ user: cart.user }).select('-user -__v');
+                    return response(res, HTTP_STATUS.OK, "successfully Added to cart", await modifyCart(mycart, req));
                 }
                 return response(res, HTTP_STATUS.NOT_FOUND, "Cart not created");
             }
@@ -124,11 +115,6 @@ class CartController {
     }
 
     async remove(req, res) {
-        function getuserid(req) {
-            const token = req.header("Authorization").replace("Bearer ", "");
-            const decoded = jsonWebtoken.decode(token);
-            return decoded.data.user._id;
-        }
         try {
             let error = [];
             const errors = validationResult(req);
@@ -136,7 +122,7 @@ class CartController {
                 return response(res, HTTP_STATUS.BAD_REQUEST, "Validation Error", errors.array());
             }
             const cart = req.body;
-            cart.user = getuserid(req);
+            cart.user = req.user;
             const extcart = await Cart.findOne({ user: cart.user });
             if (!extcart) {
                 error.push({ msg: "You have no book in the cart" });
@@ -157,9 +143,8 @@ class CartController {
                 return response(res, HTTP_STATUS.BAD_REQUEST, "Validation Error", error);
             }
             const updated = await Cart.updateOne({ user: cart.user, "books.book": cart.book }, { $inc: { "books.$.quantity": -cart.quantity } });
-            const extBook = await Book.findById({ _id: cart.book });
             if (updated) {
-                const mycart = await Cart.findOne({ user: cart.user });
+                const mycart = await Cart.findOne({ user: cart.user }).select('-user -__v');;
                 mycart.books.forEach(book => {
                     if (book.quantity == 0) {
                         mycart.books.remove(book);
@@ -180,14 +165,9 @@ class CartController {
     }
 
     async getMyCart(req, res) {
-        function getuserid(req) {
-            const token = req.header("Authorization").replace("Bearer ", "");
-            const decoded = jsonWebtoken.decode(token);
-            return decoded.data.user._id;
-        }
         try {
-            const userid = getuserid(req);
-            const extcart = await Cart.findOne({ user: userid });
+            const userid = req.user;
+            const extcart = await Cart.findOne({ user: userid }).select('-user -__v');
             if (!extcart || extcart.books.length == 0) {
                 return response(res, HTTP_STATUS.NOT_FOUND, "You have no book in the cart");
             }

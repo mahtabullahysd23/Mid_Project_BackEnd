@@ -9,15 +9,7 @@ const jsonWebtoken = require("jsonwebtoken");
 const sendEmail = require("../utility/sendEmail");
 const ejs = require("ejs");
 const path = require("path");
-
-const currentdate = () => {
-  const currentDate = new Date();
-  const year = currentDate.getFullYear();
-  const month = String(currentDate.getMonth() + 1).padStart(2, "0");
-  const day = String(currentDate.getDate()).padStart(2, "0");
-  const dateString = `${year}-${month}-${day}`;
-  return dateString;
-};
+const {currentdate}=require("../utility/functions");
 
 const modifyCart = async (cart, req) => {
     try{
@@ -43,15 +35,10 @@ const modifyCart = async (cart, req) => {
 
 class TransactionController {
   async create(req, res) {
-    function getuserid(req) {
-      const token = req.header("Authorization").replace("Bearer ", "");
-      const decoded = jsonWebtoken.decode(token);
-      return decoded.data.user._id;
-    }
     try {
       let cartbooks = [];
       let error = [];
-      const user_id = getuserid(req);
+      const user_id = req.user;
       const cart_id = await Cart.findOne({ user: user_id }).select({ _id: 1 });
       const wallet = await Wallet.findOne({ user: user_id });
       let cart = await Cart.findById(cart_id);
@@ -113,7 +100,9 @@ class TransactionController {
         }
       );
       const resData = created.toObject();
+      delete resData.__v;
       delete resData.cart;
+      delete resData.updatedAt;
       if (created && decreaseBalance) {
         await Cart.deleteOne({ _id: cart_id });
         cart.books.forEach(async (book) => {
@@ -130,7 +119,7 @@ class TransactionController {
           { transaction }
         );
         await sendEmail(req.email, "Purchase Reciept", renderedHtml);
-
+        delete resData.user;
         return response(
           res,
           HTTP_STATUS.OK,
@@ -150,13 +139,8 @@ class TransactionController {
   }
 
   async getMyTransactions(req, res) {
-    function getuserid(req) {
-      const token = req.header("Authorization").replace("Bearer ", "");
-      const decoded = jsonWebtoken.decode(token);
-      return decoded.data.user._id;
-    }
     try {
-      const user_id = getuserid(req);
+      const user_id =req.user;
       const orders = await Transaction.find({ user: user_id })
         .populate("books.book", "-stock -_id -reviews")
         .select({ _id: 1, books: 1, total: 1, createdAt: 1 });

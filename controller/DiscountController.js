@@ -3,18 +3,11 @@ const Book = require("../model/BookClass");
 const response = require("../utility/common");
 const HTTP_STATUS = require("../constants/statusCodes");
 const { validationResult } = require("express-validator");
+const {currentdate}=require("../utility/functions");
+const mongoose = require("mongoose");
 
-const currentdate = () => {
-  const currentDate = new Date();
-  const year = currentDate.getFullYear();
-  const month = String(currentDate.getMonth() + 1).padStart(2, "0");
-  const day = String(currentDate.getDate()).padStart(2, "0");
-  const dateString = `${year}-${month}-${day}`;
-  return dateString;
-};
 
 class DiscountController {
-
   async getAll(req, res) {
     try {
       let page = parseInt(req.query.page) || 1;
@@ -86,7 +79,7 @@ class DiscountController {
         }
 
       }
-      const discountInfo = await Discount.create({
+      let discountInfo = await Discount.create({
         description,
         percentage,
         eligibleRoles,
@@ -95,6 +88,8 @@ class DiscountController {
         endDate,
         books,
       });
+      discountInfo = discountInfo.toObject();
+      delete discountInfo.__v;
       if (discountInfo) {
         return response(
           res,
@@ -120,7 +115,7 @@ class DiscountController {
         return response(res, HTTP_STATUS.BAD_REQUEST, validationErrors.array());
       }
       const discountId = req.params.id;
-      if (discountId.length != 24) {
+      if (!mongoose.Types.ObjectId.isValid(discountId)) {
         return response(res, HTTP_STATUS.BAD_REQUEST, "Invalid Id");
       }
       if (!req.body.book && !req.body.eligibleCountries && !req.body.eligibleRoles) {
@@ -147,7 +142,7 @@ class DiscountController {
         },
       });
       if (discountInfo) {
-        const afterUpdate = await Discount.findById(discountId);
+        const afterUpdate = await Discount.findById(discountId).select("-__v");
         return response(
           res,
           HTTP_STATUS.OK,
@@ -168,7 +163,7 @@ class DiscountController {
   async updateDiscount(req, res) {
     try {
       const discountId = req.params.id;
-      if (discountId.length != 24) {
+      if (!mongoose.Types.ObjectId.isValid(discountId)) {
         return response(res, HTTP_STATUS.BAD_REQUEST, "Invalid Id");
       }
       const errors = validationResult(req);
@@ -235,14 +230,14 @@ class DiscountController {
   async deleteDiscount(req, res) {
     try {
       const discountId = req.params.id;
-      if (discountId.length != 24) {
+      if (!mongoose.Types.ObjectId.isValid(discountId)) {
         return response(res, HTTP_STATUS.BAD_REQUEST, "Invalid Id");
       }
       const foundId = await Discount.findById(discountId);
       if (!foundId) {
         return response(res, HTTP_STATUS.NOT_FOUND, "Discount not found");
       }
-      const discount = await Discount.findByIdAndDelete(discountId);
+      const discount = await Discount.findByIdAndDelete(discountId).select("-__v");
       if (discount) {
         return response(
           res,

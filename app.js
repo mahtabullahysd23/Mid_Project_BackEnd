@@ -17,6 +17,35 @@ const WalletRouter = require("./routers/Wallet");
 const UserRouter = require("./routers/User"); 
 const DiscountRouter = require("./routers/Discount");
 const path = require("path");
+const morgan = require('morgan')
+const fs = require('fs');
+const { error } = require("console");
+
+var accessLogStream = fs.createWriteStream(path.join(__dirname, 'server.log'), { flags: 'a' })
+function myCustomFormat(token,req, res,) {
+  const formattedDate = new Date().toString();
+  const endpoint = req.originalUrl;
+  const requestInfo = {
+    Method: req.method,
+    statusMessage: res.statusMessage,
+    statusCode: res.statusCode,
+  };
+  
+let logMessage = `
+${formattedDate}
+Endpoint : ${endpoint}
+Request:${JSON.stringify(requestInfo, null, 4)}
+`;
+
+if (res.statusCode >= 400) {
+  logMessage+=`Error: ${res.locals.errorMessage} `
+}
+
+  return logMessage;
+}
+app.use(morgan((myCustomFormat), { stream: accessLogStream }))
+
+
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
@@ -29,6 +58,7 @@ app.use("/api/reviews", ReviewRouter);
 app.use("/api/wallet", WalletRouter);
 app.use("/api/user", UserRouter);
 app.use("/api/discount", DiscountRouter);
+
 
 app.use((err, req, res, next) => {
   if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {

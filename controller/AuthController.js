@@ -28,7 +28,7 @@ class Authcontroller {
       if (!user) {
         return response(res, HTTP_STATUS.BAD_REQUEST, "Invalid Credentials");
       }
-      const match = await bcrypt.compare(password, user.password);
+      const match = bcrypt.compare(password, user.password);
       if (!match) {
         const updateAttempt = await Auth.findOneAndUpdate(
           { "email.id": email },
@@ -47,21 +47,21 @@ class Authcontroller {
           );
           return response(
             res,
-            HTTP_STATUS.BAD_REQUEST,
+            HTTP_STATUS.TOO_MANY_REQUESTS,
             "Too Many attempts, Your account is blocked for 24 hours"
           );
         }
-        return response(res, HTTP_STATUS.NOT_FOUND, "Invalid Credentials");
+        return response(res, HTTP_STATUS.UNAUTHORIZED, "Invalid Credentials");
       }
       if (user.locked && user.unloackTime > Date.now()) {
         return response(
           res,
-          HTTP_STATUS.BAD_REQUEST,
+          HTTP_STATUS.TOO_MANY_REQUESTS,
           "Too Many attempts, Your account is blocked for 24 hours"
         );
       }
       if (!user.email.status) {
-        return response(res, HTTP_STATUS.LOCKED, "Please verify your email");
+        return response(res, HTTP_STATUS.FORBIDDEN, "Please verify your email");
       }
       const tokenExpiration = "24h";
       const token = jsonWebtoken.sign({ data: user }, process.env.JWT_KEY, {
@@ -96,7 +96,7 @@ class Authcontroller {
           { name, validationlink, port: process.env.PORT }
         );
 
-        await sendEmail(email, "Account Verification", renderedHtml);
+        sendEmail(email, "Account Verification", renderedHtml);
 
         return true;
       } catch (error) {
@@ -118,31 +118,31 @@ class Authcontroller {
 
       const { name, email, address, password } = req.body;
 
-      const existEmail = await Auth.findOne({ "email.id": email.id });
+      const existEmail = await Auth.findOne({ "email.id": email });
 
       if (existEmail) {
         if (existEmail.email.status === true) {
-          return response(res, HTTP_STATUS.BAD_REQUEST, "Email already exists");
+          return response(res, HTTP_STATUS.CONFLICT, "Email already exists");
         } else {
           const salt = await bcrypt.genSalt(10);
           const hash = await bcrypt.hash(password, salt);
 
           const updatedAuth = await Auth.findOneAndUpdate(
-            { "email.id": email.id },
+            { "email.id": email },
             { $set: { password: hash } }
           );
 
           const updateUser = await User.findOneAndUpdate(
-            { email: email.id },
+            { email: email },
             { $set: { name: name, address: address } }
           );
 
-          const sent = await sendVerifyEmail(email.id, name);
+          const sent = await sendVerifyEmail(email, name);
 
           if (updatedAuth && updateUser && sent) {
-            const upauthfound = await Auth.findOne({ "email.id": email.id })
-              .select("-email -password -attempt -locked -unloackTime -__v")
-              .populate("user", "-__v");
+            const upauthfound = await Auth.findOne({ "email.id": email })
+              .select("-email -password -attempt -locked -unloackTime -__v -_id -role")
+              .populate("user", "-__v -_id");
             return response(
               res,
               HTTP_STATUS.OK,
@@ -154,18 +154,18 @@ class Authcontroller {
       } else {
         const salt = await bcrypt.genSalt(10);
         const hash = await bcrypt.hash(password, salt);
-        const user = await User.create({ name, email: email.id, address });
+        const user = await User.create({ name, email: email, address });
         const auth = await Auth.create({
-          email,
+          email: { id: email},
           password: hash,
           user: user._id,
         });
-        const sent = await sendVerifyEmail(email.id, name);
+        const sent = await sendVerifyEmail(email, name);
 
         if (user && auth && sent) {
-          const authfound = await Auth.findOne({ "email.id": email.id })
-            .select("-email -password -attempt -locked -unloackTime -__v")
-            .populate("user", "-__v");
+          const authfound = await Auth.findOne({ "email.id": email })
+            .select("-email -password -attempt -locked -unloackTime -__v -_id -role")
+            .populate("user", "-__v -_id");
           return response(
             res,
             HTTP_STATUS.OK,

@@ -6,19 +6,13 @@ const { validationResult } = require("express-validator");
 
 class WalletController{
     async add(req,res){
-        function getuserid(req){
-            const token = req.header("Authorization").replace("Bearer ","");
-            const decoded = jsonWebtoken.decode(token);
-            return decoded.data.user._id;
-        }
         try{
-
             const errors = validationResult(req);
             if(!errors.isEmpty()){
                 return response(res,HTTP_STATUS.BAD_REQUEST,"Validation Error",errors.array());
             }
-            const user_id = getuserid(req);
-            const wallet = await Wallet.findOne({user:user_id});
+            const user_id = req.user;
+            const wallet = await Wallet.findOne({user:user_id})
             if(!wallet){
                 const wallet = {
                     user:user_id,
@@ -43,15 +37,9 @@ class WalletController{
     }
 
     async getMyWallet(req,res){
-
-        function getuserid(req){
-            const token = req.header("Authorization").replace("Bearer ","");
-            const decoded = jsonWebtoken.decode(token);
-            return decoded.data.user._id;
-        }
         try{
-            const user_id = getuserid(req);
-            const wallet = await Wallet.findOne({user:user_id}).populate("debitTransactions","-__v -user -cart -status -updatedAt -books");
+            const user_id = req.user;
+            const wallet = await Wallet.findOne({user:user_id}).populate("debitTransactions","-__v -user -cart -status -updatedAt -books").select("-__v -user");
             if(!wallet){
                 return response(res,HTTP_STATUS.BAD_REQUEST,"Add Balance to Wallet first");
             }
