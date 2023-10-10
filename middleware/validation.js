@@ -205,7 +205,7 @@ const userValidator = {
       .withMessage("Role must be a string")
       .bail()
       .isIn(["user", "premium_user"])
-      .withMessage("Role must be either user or admin"),
+      .withMessage("Role must be either user or premium_user"),
   ],
 };
 
@@ -232,14 +232,20 @@ const bookValidator = {
       .withMessage("Price must be a number")
       .bail()
       .isFloat({ min: 0 })
-      .withMessage("Price cannot be negative"),
+      .withMessage("Price cannot be negative")
+      .bail()
+      .isLength({ max: 10 })
+      .withMessage("Too long input"),
 
     body("stock")
       .exists()
       .withMessage("Stock was not provided")
       .bail()
       .isInt({ min: 0 })
-      .withMessage("Stock must be a non-negative integer"),
+      .withMessage("Stock must be a non-negative integer")
+      .bail()
+      .isLength({ max: 10 })
+      .withMessage("Too long input"),
 
     body("author")
       .exists()
@@ -249,7 +255,10 @@ const bookValidator = {
       .withMessage("Author cannot be empty")
       .bail()
       .isString()
-      .withMessage("Author must be a string"),
+      .withMessage("Author must be a string")
+      .bail()
+      .isLength({ max: 30 })
+      .withMessage("author cannot be more than 30 characters"),
 
     body("genre")
       .exists()
@@ -259,7 +268,10 @@ const bookValidator = {
       .withMessage("Genre cannot be empty")
       .bail()
       .isString()
-      .withMessage("Genre must be a string"),
+      .withMessage("Genre must be a string")
+      .bail()
+      .isLength({ max: 30 })
+      .withMessage("genre cannot be more than 30 characters"),
 
     body("publisher")
       .exists()
@@ -269,7 +281,10 @@ const bookValidator = {
       .withMessage("Publisher cannot be empty")
       .bail()
       .isString()
-      .withMessage("Publisher must be a string"),
+      .withMessage("Publisher must be a string")
+      .bail()
+      .isLength({ max: 30 })
+      .withMessage("publisher cannot be more than 30 characters"),
 
     body("isbn")
       .exists()
@@ -282,15 +297,20 @@ const bookValidator = {
       .withMessage("ISBN must be a string")
       .bail()
       .matches(/^[0-9]{3}-[0-9]{1}-[0-9]{2}-[0-9]{6}-[0-9]{1}$/)
-      .withMessage("Invalid ISBN format"),
+      .withMessage("Invalid ISBN format")
+      .bail()
+      .isLength({ max: 30 })
+      .withMessage("publisher cannot be more than 30 characters"),
 
     body("pages")
       .exists()
       .withMessage("Pages were not provided")
       .bail()
       .isInt({ min: 1 })
-      .withMessage("Pages must be a positive integer"),
-
+      .withMessage("Pages must be a positive integer")
+      .bail()
+      .isLength({ max: 10 })
+      .withMessage("Too long input") ,
     body("language")
       .exists()
       .withMessage("Language was not provided")
@@ -299,7 +319,46 @@ const bookValidator = {
       .withMessage("Language cannot be empty")
       .bail()
       .isString()
-      .withMessage("Language must be a string"),
+      .withMessage("Language must be a string")
+      .bail()
+      .isLength({ max: 30 })
+      .withMessage("language cannot be more than 30 characters"),
+    body("imageUrl")
+      .exists()
+      .withMessage("ImageUrl was not provided")
+      .bail()
+      .notEmpty()
+      .withMessage("ImageUrl cannot be empty")
+      .bail()
+      .isString()
+      .withMessage("ImageUrl must be a string")
+      .bail()
+      .isLength({ max: 30 })
+      .withMessage("ImageUrl cannot be more than 30 characters"),
+    body("tags")
+      .exists()
+      .withMessage("Tags was not provided")
+      .bail()
+      .notEmpty()
+      .withMessage("Tags cannot be empty")
+      .bail()
+      .isString()
+      .withMessage("Tags must be a string")
+      .bail()
+      .isLength({ max: 30 })
+      .withMessage("Tags cannot be more than 30 characters"),
+    body("description")
+      .exists()
+      .withMessage("Description was not provided")
+      .bail()
+      .notEmpty()
+      .withMessage("Description cannot be empty")
+      .bail()
+      .isString()
+      .withMessage("Description must be a string")
+      .bail()
+      .isLength({ max: 100 })
+      .withMessage("Description cannot be more than 100 characters"),
   ],
   update: [
     body("name")
@@ -322,15 +381,22 @@ const bookValidator = {
       .withMessage("Price must be a number")
       .bail()
       .isFloat({ min: 0 })
-      .withMessage("Price cannot be negative"),
+      .withMessage("Price cannot be negative")
+      .bail()
+      .isLength({ max: 10 })
+      .withMessage("Too long input"),
 
     body("stock")
       .optional()
       .notEmpty()
       .withMessage("Stock cannot be empty")
       .bail()
+      .isLength({ max: 10 })
+      .withMessage("Too long input")
+      .bail()
       .isInt({ min: 1 })
       .withMessage("Stock must be a non-negative integer or greater than zero"),
+      
 
     body("author")
       .optional()
@@ -338,7 +404,10 @@ const bookValidator = {
       .withMessage("Author cannot be empty")
       .bail()
       .isString()
-      .withMessage("Author must be a string"),
+      .withMessage("Author must be a string")
+      .bail()
+      .isLength({ max: 30 })
+      .withMessage("author cannot be more than 30 characters"),
 
     body("genre")
       .optional()
@@ -346,7 +415,10 @@ const bookValidator = {
       .withMessage("Genre cannot be empty")
       .bail()
       .isString()
-      .withMessage("Genre must be a string"),
+      .withMessage("Genre must be a string")
+      .bail()
+      .isLength({ max: 30 })
+      .withMessage("genre cannot be more than 30 characters"),
 
     body("publisher")
       .optional()
@@ -354,7 +426,10 @@ const bookValidator = {
       .withMessage("Publisher cannot be empty")
       .bail()
       .isString()
-      .withMessage("Publisher must be a string"),
+      .withMessage("Publisher must be a string")
+      .bail()
+      .isLength({ max: 30 })
+      .withMessage("publisher cannot be more than 30 characters"),
 
     body("isbn")
       .optional()
@@ -365,7 +440,10 @@ const bookValidator = {
       .withMessage("ISBN must be a string")
       .bail()
       .matches(/^[0-9]{3}-[0-9]{1}-[0-9]{2}-[0-9]{6}-[0-9]{1}$/)
-      .withMessage("Invalid ISBN format"),
+      .withMessage("Invalid ISBN format")
+      .bail()
+      .isLength({ max: 30 })
+      .withMessage("ISBN cannot be more than 30 characters"),
 
     body("pages")
       .optional()
@@ -373,7 +451,10 @@ const bookValidator = {
       .withMessage("Pages cannot be empty")
       .bail()
       .isInt({ min: 1 })
-      .withMessage("Pages must be a positive integer"),
+      .withMessage("Pages must be a positive integer")
+      .bail()
+      .isLength({ max: 10 })
+      .withMessage("Too long input"),
 
     body("language")
       .optional()
@@ -381,7 +462,40 @@ const bookValidator = {
       .withMessage("Language cannot be empty")
       .bail()
       .isString()
-      .withMessage("Language must be a string"),
+      .withMessage("Language must be a string")
+      .bail()
+      .isLength({ max: 30 })
+      .withMessage("Language cannot be more than 30 characters"),
+    body("imageUrl")
+      .optional()
+      .notEmpty()
+      .withMessage("ImageUrl cannot be empty")
+      .bail()
+      .isString()
+      .withMessage("ImageUrl must be a string")
+      .bail()
+      .isLength({ max: 30 })
+      .withMessage("ImageUrl cannot be more than 30 characters"),
+    body("tags")
+      .optional()
+      .notEmpty()
+      .withMessage("Tags cannot be empty")
+      .bail()
+      .isString()
+      .withMessage("Tags must be a string")
+      .bail()
+      .isLength({ max: 30 })
+      .withMessage("Tags cannot be more than 30 characters"),
+    body("description")
+      .optional()
+      .notEmpty()
+      .withMessage("Description cannot be empty")
+      .bail()
+      .isString()
+      .withMessage("Description must be a string")
+      .bail()
+      .isLength({ max: 100 })
+      .withMessage("Description cannot be more than 100 characters"),
   ],
 };
 const balanceValidator = {
@@ -425,8 +539,8 @@ const discountValidator = {
       .isNumeric()
       .withMessage("Percentage must be a number")
       .bail()
-      .isFloat({ min: 1, max: 99 })
-      .withMessage("Percentage must be between 1 and 100"),
+      .isFloat({ min: 1, max: 80 })
+      .withMessage("Percentage must be between 1 and 80"),
     body("eligibleRoles")
       .exists()
       .withMessage("Eligible Roles was not provided")
@@ -548,8 +662,8 @@ const discountValidator = {
       .isNumeric()
       .withMessage("Percentage must be a number")
       .bail()
-      .isFloat({ min: 1, max: 99 })
-      .withMessage("Percentage must be between 1 and 100"),
+      .isFloat({ min: 1, max: 80 })
+      .withMessage("Percentage must be between 1 and 80"),
     body("eligibleRoles")
       .optional()
       .bail()
@@ -787,6 +901,46 @@ const pagelimitValidator = {
       .isLength({ max: 10 })
       .withMessage("Too long input"),
   ]
+
+}
+
+const transactionValidator = {
+  create:[
+    body("streetAddress")
+      .exists()
+      .withMessage("Street Address was not provided")
+      .bail()
+      .notEmpty()
+      .withMessage("Street Address cannot be empty")
+      .bail()
+      .isString()
+      .withMessage("Street Address must be a string")
+      .isLength({ max: 30 })
+      .withMessage("Street Address cannot be more than 30 characters"),
+    body("city")
+      .exists()
+      .withMessage("City was not provided")
+      .bail()
+      .notEmpty()
+      .withMessage("City cannot be empty")
+      .bail()
+      .isString()
+      .withMessage("City must be a string")
+      .isLength({ max: 30 })
+      .withMessage("City cannot be more than 30 characters"),
+    body("zipCode")
+      .exists()
+      .withMessage("Zip Code was not provided")
+      .bail()
+      .notEmpty()
+      .withMessage("Zip Code cannot be empty")
+      .bail()
+      .isString()
+      .withMessage("Zip Code must be a string")
+      .isLength({ max: 30 })
+      .withMessage("Zip Code cannot be more than 30 characters"),
+  ]
+
 }
 
 module.exports = {
@@ -798,5 +952,6 @@ module.exports = {
   balanceValidator,
   discountValidator,
   filterValiator,
-  pagelimitValidator
+  pagelimitValidator,
+  transactionValidator
 };

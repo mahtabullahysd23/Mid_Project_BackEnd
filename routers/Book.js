@@ -6,9 +6,9 @@ const BookController = require("../controller/BookController");
 
 routes.get("/",filterValiator.filter,BookController.getAll);
 routes.get("/:id",BookController.getById);
-routes.post("/add",isValidAdmin,bookValidator.add,BookController.create);
-routes.patch("/update/:id",isValidAdmin,bookValidator.update,BookController.update);
-routes.delete("/delete/:id",isValidAdmin,BookController.delete);
+routes.post("/add",bookValidator.add,BookController.create);
+routes.patch("/update/:id",bookValidator.update,BookController.update);
+routes.delete("/delete/:id",BookController.delete);
 
 
 module.exports = routes;

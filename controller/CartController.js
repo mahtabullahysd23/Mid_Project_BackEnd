@@ -166,7 +166,7 @@ class CartController {
     async getMyCart(req, res) {
         try {
             const userid = req.user;
-            const extcart = await Cart.findOne({ user: userid }).select('-user -__v');
+            const extcart = await Cart.findOne({ user: userid }).select('-user -__v').populate('books.book','-__v -reviews' );
             if (!extcart || extcart.books.length == 0) {
                 return response(res, HTTP_STATUS.NOT_FOUND, "You have no book in the cart");
             }

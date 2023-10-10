@@ -36,6 +36,15 @@ const modifyCart = async (cart, req) => {
 class TransactionController {
   async create(req, res) {
     try {
+      const errorvalidation = validationResult(req);
+      if (!errorvalidation.isEmpty()) {
+        return response(
+          res,
+          HTTP_STATUS.BAD_REQUEST,
+          "Validation Error",
+          errorvalidation.array()
+        );
+      }
       let cartbooks = [];
       let error = [];
       const user_id = req.user;
@@ -90,6 +99,9 @@ class TransactionController {
         cart: cart,
         books: cartbooks,
         total: cart.cart_total,
+        streetAddress: req.body.streetAddress,
+        city: req.body.city,
+        zipCode: req.body.zipCode
       };
       const created = await Transaction.create(order);
       const decreaseBalance = await Wallet.findOneAndUpdate(
