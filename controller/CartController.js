@@ -59,13 +59,13 @@ class CartController {
             }
             if (extBook) {
                 if (extBook.stock < cart.quantity) {
-                    error.push({ msg: "Book stock is less than quantity" });
+                    error.push({ msg: "Book is out of stock" });
                 }
                 else if (extBook.stock == 0) {
                     error.push({ msg: "Book stock is zero" });
                 }
                 else if (extCartandBook && extBook.stock < extCartandBook.books[0].quantity + cart.quantity) {
-                    error.push({ msg: "Book stock is less than quantity" });
+                    error.push({ msg: "Book is out of stock" });
                 }
             }
             if (error.length > 0) {
