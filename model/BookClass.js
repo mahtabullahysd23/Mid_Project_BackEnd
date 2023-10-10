@@ -9,6 +9,10 @@ const BookSchema = new mongoose.Schema({
     type: Number,
     required: [true, "Price is required"],
   },
+  description:{
+    type: String,
+    required: [true, "Description is required"],
+  },
   stock: {
     type: Number,
     required: [true, "Stock is required"],
@@ -38,6 +42,17 @@ const BookSchema = new mongoose.Schema({
     type: String,
     required: [true, "Language is required"],
   },
+
+  imageUrl: {
+    type: String,
+    required: true,
+  },
+
+  tags: {
+    type: String,
+    required: true,
+  },
+
   rating: {
     type: Number,
     required: false,

@@ -49,7 +49,7 @@ class BookController {
       );
     }
     try {
-      let limit = parseInt(req.query.Limit) || 10;
+      let limit = parseInt(req.query.Limit) || 12;
       let page = parseInt(req.query.Page) || 1;
       let sortBy = req.query.SortBy || "_id";
       let sortDirection = req.query.SortByType === "desc" ? -1 : 1;
@@ -229,6 +229,9 @@ class BookController {
         isbn,
         pages,
         language,
+        description,
+        imageUrl,
+        tags,
       } = req.body;
       const extISBN = await Book.findOne({ isbn });
       if (extISBN) {
@@ -244,6 +247,9 @@ class BookController {
         isbn,
         pages,
         language,
+        description,
+        imageUrl,
+        tags
       });
       created=created.toObject();
       delete created.__v;
@@ -291,6 +297,9 @@ class BookController {
         isbn,
         pages,
         language,
+        description,
+        imageUrl,
+        tags
       } = req.body;
       const extISBN = await Book.findOne({ isbn });
       if (extISBN) {
@@ -306,6 +315,9 @@ class BookController {
         isbn,
         pages,
         language,
+        description,
+        imageUrl,
+        tags
       });
       const afterUpdate = await Book.findById(bookId).select("-__v -reviews");
       if (updatedbook) {

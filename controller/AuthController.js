@@ -31,7 +31,7 @@ class Authcontroller {
       if(user.banned){
         return response(res, HTTP_STATUS.BAD_REQUEST, "You are banned from the system");
       }
-      const match = bcrypt.compare(password, user.password);
+      const match = await bcrypt.compare(password, user.password);
       if (!match) {
         const updateAttempt = await Auth.findOneAndUpdate(
           { "email.id": email },
@@ -145,7 +145,7 @@ class Authcontroller {
 
           if (updatedAuth && updateUser && sent) {
             const upauthfound = await Auth.findOne({ "email.id": email })
-              .select("-email -password -attempt -locked -unloackTime -__v -_id -role")
+              .select("-email -password -attempt -locked -unloackTime -__v -_id -role -banned")
               .populate("user", "-__v -_id");
             return response(
               res,
@@ -169,7 +169,7 @@ class Authcontroller {
 
         if (user && auth && sent) {
           const authfound = await Auth.findOne({ "email.id": email })
-            .select("-email -password -attempt -locked -unloackTime -__v -_id -role")
+            .select("-email -password -attempt -locked -unloackTime -__v -_id -role -banned")
             .populate("user", "-__v -_id");
           return response(
             res,
