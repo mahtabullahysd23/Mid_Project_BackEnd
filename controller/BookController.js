@@ -188,7 +188,12 @@ class BookController {
 
       const book = await Book.findById(bookId)
         .populate("reviews")
-        .populate("reviews.user", "-__v -_id");
+        .populate({
+          path: 'reviews', // Reference the 'author' field
+          populate: {
+            path: 'user', // Populate the 'friends' field within the 'User' model
+          },
+        })
 
       if (book) {
         const discount = await discountedPrice(bookId, req);
