@@ -40,13 +40,13 @@ class ReviewController {
       if (!extBook) {
         return response(res, HTTP_STATUS.BAD_REQUEST, "Book does not exist");
       }
-      if (!extpurchaseBook) {
-        return response(
-          res,
-          HTTP_STATUS.BAD_REQUEST,
-          "You have not purchased this book"
-        );
-      }
+      // if (!extpurchaseBook) {
+      //   return response(
+      //     res,
+      //     HTTP_STATUS.BAD_REQUEST,
+      //     "You have not purchased this book"
+      //   );
+     // }
       if (extReview) {
         if (
           extReview.rating == review.rating &&
