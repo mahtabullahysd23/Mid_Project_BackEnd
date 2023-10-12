@@ -75,6 +75,7 @@ class Authcontroller {
         { $set: { locked: false, unloackTime: Date.now(), attempt: 0 } }
       );
       return response(res, HTTP_STATUS.OK, "Successfully Logged in", {
+        role: user.role,
         token: token,
       });
     } catch (e) {
