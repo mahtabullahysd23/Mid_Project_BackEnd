@@ -48,9 +48,9 @@ const BookSchema = new mongoose.Schema({
     required: true,
   },
 
-  tags: {
+  tag: {
     type: String,
-    required: true,
+    required: [true, "Tag is required"],
   },
 
   rating: {

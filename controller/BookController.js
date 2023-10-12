@@ -55,8 +55,9 @@ class BookController {
       let sortDirection = req.query.SortByType === "desc" ? -1 : 1;
       let filters = {};
       if (req.query.Search) {
-        const searchRegex = new RegExp(req.query.Search, "i");
-        filters["$or"] = [{ name: searchRegex }, { author: searchRegex }, { genre: searchRegex }, { publisher: searchRegex }, { isbn: searchRegex }, { language: searchRegex }];
+        const sanitizedSearchQuery = req.query.Search.replace(/\s+/g, "\\s*");
+        const searchRegex = new RegExp(sanitizedSearchQuery, "i");
+        filters["$or"] = [{ name: searchRegex }, { author: searchRegex }, { genre: searchRegex }, { publisher: searchRegex }, { isbn: searchRegex }, { language: searchRegex },{ tags: searchRegex },{ description: searchRegex },];
       }
 
       if(req.query.SortBy && !req.query.SortByType || req.query.SortByType && !req.query.SortBy){
@@ -86,6 +87,15 @@ class BookController {
       }
       if (req.query.Language) {
         filters.language = { $in: req.query.Language };
+      }
+
+      if (req.query.Tag) {
+        filters.tag = { $in: req.query.Tag };
+      }
+
+      if (req.query.PriceBetween){
+        const price = req.query.PriceBetween.split(",");
+        filters.price = { $gte: price[0], $lte: price[1] };
       }
 
       // Handle filtering by price and stock
@@ -128,6 +138,7 @@ class BookController {
       }
       const count = await Book.countDocuments(filters);
       const books = await Book.find(filters)
+      
         .sort({ [sortBy]: sortDirection })
         .skip((page - 1) * limit)
         .limit(limit).select("-__v -reviews");
