@@ -211,6 +211,41 @@ class Authcontroller {
       res.render('failedConfirm');
     }
   }
+
+  async getRole(req, res) {
+    try {
+      const { id } = req.params;
+      const user = await Auth.findOne({ "email.id": id }).populate(
+        "user",
+        "-__v"
+      );
+      if (!user) {
+        return response(res, HTTP_STATUS.NOT_FOUND, "User not found");
+      }
+      return response(res, HTTP_STATUS.OK, "User role", user.role);
+    } catch (e) {
+      return response(
+        res,
+        HTTP_STATUS.INTERNAL_SERVER_ERROR,
+        "Internal server error"
+      );
+    }
+  }
+  async getAll(req, res) {
+    try {
+      const users = await Auth.find({}).select("-password -__v").populate("user", "-__v");
+      if (users) {
+        return response(res, HTTP_STATUS.OK, "All Users", users);
+      }
+      return response(res, HTTP_STATUS.NOT_FOUND, "No Users Found");
+    } catch (e) {
+      return response(
+        res,
+        HTTP_STATUS.INTERNAL_SERVER_ERROR,
+        "Internal server error"
+      );
+    }
+  }
 }
 
 module.exports = new Authcontroller();

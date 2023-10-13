@@ -72,14 +72,15 @@ class UserController {
       if (!user) {
         return response(res, HTTP_STATUS.NOT_FOUND, "User not found");
       }
-      const {name,address,role}=req.body;
+      const {name,address,role,banned,locked}=req.body;
+
         const userUpdaed = await User.findByIdAndUpdate(
             user_id,
             { $set: { name,address } }
         )
         const authUpdaed = await Auth.findOneAndUpdate(
             {user:user_id},
-            { $set: { role:role } }
+            { $set: { role:role, banned,locked} }
         )
        user = await User.findById(user_id).select("-__v");
         if (userUpdaed||authUpdaed) {
