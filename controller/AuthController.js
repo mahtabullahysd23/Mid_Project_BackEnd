@@ -93,7 +93,7 @@ class Authcontroller {
         const token = jsonWebtoken.sign({ email }, process.env.JWT_KEY, {
           expiresIn: "5m",
         });
-        const validationlink = `${base_url}/api/auth/verifyemail/${token}`;
+        const validationlink = `${process.env.BASE_URL}/api/auth/verifyemail/${token}`;
 
         const renderedHtml = await ejs.renderFile(
           path.join(__dirname, "../views/verifyemail.ejs"),
