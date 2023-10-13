@@ -156,7 +156,7 @@ class TransactionController {
       const user_id =req.user;
       const orders = await Transaction.find({ user: user_id })
         .populate("books.book", "-stock -_id -reviews")
-        .select({ _id: 1, books: 1, total: 1, createdAt: 1 });
+        .select({ _id: 1, books: 1, total: 1, createdAt: 1 ,streetAddress:1,city:1 });
       if (orders.length > 0) {
         return response(
           res,
