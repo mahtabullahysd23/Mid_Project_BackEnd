@@ -28,8 +28,12 @@ class Authcontroller {
       if (!user) {
         return response(res, HTTP_STATUS.BAD_REQUEST, "Invalid Credentials");
       }
-      if(user.banned){
-        return response(res, HTTP_STATUS.BAD_REQUEST, "You are banned from the system");
+      if (user.banned) {
+        return response(
+          res,
+          HTTP_STATUS.BAD_REQUEST,
+          "You are banned from the system"
+        );
       }
       const match = await bcrypt.compare(password, user.password);
       if (!match) {
@@ -91,8 +95,9 @@ class Authcontroller {
     async function sendVerifyEmail(email, name) {
       try {
         const token = jsonWebtoken.sign({ email }, process.env.JWT_KEY, {
-          expiresIn: "5m",
+          expiresIn: "3m",
         });
+        // const validationlink = `http://localhost:8000/api/auth/verifyemail/${token}`;
         const validationlink = `https://bookheaven.onrender.com/api/auth/verifyemail/${token}`;
 
         const renderedHtml = await ejs.renderFile(
@@ -120,7 +125,7 @@ class Authcontroller {
         );
       }
 
-      const { name, email, address, password,country } = req.body;
+      const { name, email, address, password, country } = req.body;
 
       const existEmail = await Auth.findOne({ "email.id": email });
 
@@ -134,7 +139,7 @@ class Authcontroller {
           const updatedAuth = await Auth.findOneAndUpdate(
             { "email.id": email },
             { $set: { password: hash } },
-            { $set:{ country:country } }
+            { $set: { country: country } }
           );
 
           const updateUser = await User.findOneAndUpdate(
@@ -146,12 +151,14 @@ class Authcontroller {
 
           if (updatedAuth && updateUser && sent) {
             const upauthfound = await Auth.findOne({ "email.id": email })
-              .select("-email -password -attempt -locked -unloackTime -__v -_id -role -banned")
+              .select(
+                "-email -password -attempt -locked -unloackTime -__v -_id -role -banned"
+              )
               .populate("user", "-__v -_id");
             return response(
               res,
               HTTP_STATUS.OK,
-              "Successfully Registered,Please verify your email",
+              "Successfully Registered,Please verify your email within 3 minutes",
               upauthfound
             );
           }
@@ -161,16 +168,18 @@ class Authcontroller {
         const hash = await bcrypt.hash(password, salt);
         const user = await User.create({ name, email: email, address });
         const auth = await Auth.create({
-          email: { id: email},
+          email: { id: email },
           password: hash,
           user: user._id,
-          country:country
+          country: country,
         });
         const sent = await sendVerifyEmail(email, name);
 
         if (user && auth && sent) {
           const authfound = await Auth.findOne({ "email.id": email })
-            .select("-email -password -attempt -locked -unloackTime -__v -_id -role -banned")
+            .select(
+              "-email -password -attempt -locked -unloackTime -__v -_id -role -banned"
+            )
             .populate("user", "-__v -_id");
           return response(
             res,
@@ -200,15 +209,16 @@ class Authcontroller {
         { $set: { "email.status": true } }
       );
       if (emailvalidation) {
-        res.render('emailConfirmed');
+        res.render("emailConfirmed");
       }
     } catch (e) {
       if (e instanceof jsonWebtoken.TokenExpiredError) {
-        res.render('failedConfirm');
+        res.render("failedConfirm");
       } else if (e instanceof jsonWebtoken.JsonWebTokenError) {
-        res.render('failedConfirm');
+        res.render("failedConfirm");
+      } else {
+        res.render("failedConfirm");
       }
-      res.render('failedConfirm');
     }
   }
 
@@ -233,7 +243,9 @@ class Authcontroller {
   }
   async getAll(req, res) {
     try {
-      const users = await Auth.find({}).select("-password -__v").populate("user", "-__v");
+      const users = await Auth.find({})
+        .select("-password -__v")
+        .populate("user", "-__v");
       if (users) {
         return response(res, HTTP_STATUS.OK, "All Users", users);
       }
