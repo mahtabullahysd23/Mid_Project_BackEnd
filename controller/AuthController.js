@@ -98,8 +98,7 @@ class Authcontroller {
         const token = jsonWebtoken.sign({ email }, process.env.JWT_KEY, {
           expiresIn: "3m",
         });
-        // const validationlink = `http://localhost:8000/api/auth/verifyemail/${token}`;
-        const validationlink = `https://bookheaven.onrender.com/api/auth/verifyemail/${token}`;
+        const validationlink = `${process.env.BASE_URL}api/auth/verifyemail/${token}`;
 
         const renderedHtml = await ejs.renderFile(
           path.join(__dirname, "../views/verifyemail.ejs"),
@@ -283,7 +282,7 @@ class Authcontroller {
         return response(res, HTTP_STATUS.NOT_FOUND, "Invalid Request");
       }
       const name = user_auth.user.name;
-      const validationlink = `https://bookheaven.onrender.com/reset-password/${token}/${user_auth._id}`;
+      const validationlink = `${process.env.BASE_URL}reset-password/${token}/${user_auth._id}`;
       // const validationlink = `http://localhost:5173/reset-password/${token}/${user_auth._id}`;
       const renderedHtml = await ejs.renderFile(
         path.join(__dirname, "../views/forgotPassEmail.ejs"),
