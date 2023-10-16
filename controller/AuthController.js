@@ -259,6 +259,9 @@ class Authcontroller {
     }
   }
 
+
+
+
   async sendForgotPasswordEmail(req, res) {
     try {
       const errors = validationResult(req);
@@ -341,7 +344,7 @@ class Authcontroller {
     }
   }
 
-  async resetPassword (req, res) {
+  async resetPassword(req, res) {
     try {
 
       const errors = validationResult(req);
@@ -394,5 +397,8 @@ class Authcontroller {
       );
     }
   }
+
+
+
 }
 module.exports = new Authcontroller();
