@@ -1,4 +1,4 @@
-const { query } = require("express-validator");
+const { query, check } = require("express-validator");
 const { body } = require("express-validator");
 
 const authvalidator = {
@@ -100,6 +100,97 @@ const authvalidator = {
       .isString()
       .withMessage("Invalid Credential"),
   ],
+  send:[
+    body("email")
+    .exists()
+    .withMessage("Email was not provided")
+    .bail()
+    .notEmpty()
+    .withMessage("Email cannot be empty")
+    .bail()
+    .isString()
+    .withMessage("Email must be a string")
+    .bail()
+    .isLength({ max: 50 })
+    .withMessage("Email cannot be more than 50 characters")
+    .bail()
+    .isEmail()
+    .withMessage("Email must be a valid email"),
+  ],
+  checkToken:[
+    body("token")
+    .exists()
+    .withMessage("Token was not provided")
+    .bail()
+    .notEmpty()
+    .withMessage("Token cannot be empty")
+    .bail()
+    .isString()
+    .withMessage("Token must be a string")
+    .bail()
+    .isLength({ max: 50 })
+    .withMessage("Token cannot be more than 50 characters"),
+
+    body("id")
+    .exists()
+    .withMessage("Id was not provided")
+    .bail()
+    .notEmpty()
+    .withMessage("Id cannot be empty")
+    .bail()
+    .isString()
+    .withMessage("Id must be a string")
+    .bail()
+    .isMongoId()
+    .withMessage("Id must be a valid mongo id"),
+  ],
+  resetPassword:[
+    body("password")
+    .exists()
+    .withMessage("Password was not provided")
+    .bail()
+    .notEmpty()
+    .withMessage("Password cannot be empty")
+    .bail()
+    .isString()
+    .withMessage("Password must be a string")
+    .isLength({ min: 8 })
+    .withMessage("Password must be at least 8 characters")
+    .bail()
+    .isLength({ max: 32 })
+    .withMessage("Password cannot be more than 32 characters")
+    .bail()
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+    )
+    .withMessage(
+      "Password must contain at least one uppercase letter, one lowercase letter,one number and one special character"
+    ),
+    body("id")
+    .exists()
+    .withMessage("Id was not provided")
+    .bail()
+    .notEmpty()
+    .withMessage("Id cannot be empty")
+    .bail()
+    .isString()
+    .withMessage("Id must be a string")
+    .bail()
+    .isMongoId()
+    .withMessage("Id must be a valid mongo id"),
+    body("token")
+    .exists()
+    .withMessage("Token was not provided")
+    .bail()
+    .notEmpty()
+    .withMessage("Token cannot be empty")
+    .bail()
+    .isString()
+    .withMessage("Token must be a string")
+    .bail()
+    .isLength({ max: 50 })
+    .withMessage("Token cannot be more than 50 characters"),
+  ]
 };
 
 const cartValidator = {
@@ -953,5 +1044,5 @@ module.exports = {
   discountValidator,
   filterValiator,
   pagelimitValidator,
-  transactionValidator
+  transactionValidator,
 };

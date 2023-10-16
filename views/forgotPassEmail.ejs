@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Email Verification</title>
+    <style>
+      u + #body a,
+      #body a[style^="color: #"],
+      .button {
+        color: #ffffff !important;
+        background-color: #000000 !important;
+        text-decoration: none !important;
+      }
+
+      u + #body a:hover,
+      #body a[style^="color: #"]:hover,
+      .button:hover {
+        color: #ffffff !important;
+        background-color: #444549 !important; 
+        text-decoration: none !important;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #fff;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        background-color: #f1f1f1;
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+      .header {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      .header h1 {
+        color: #000000;
+      }
+      .content {
+        color: #333;
+        font-size: 16px;
+      }
+
+      .button {
+        display: inline-block;
+        background-color: #000000;
+        color: #fff;
+        padding: 8px 30px;
+        border-radius: 5px;
+        text-decoration: none;
+        margin:20px 0px;
+      }
+
+      .button:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Reset Password</h1>
+      </div>
+      <div class="content">
+        <h4>Hello, <%=name%></h4>
+        <p>
+          To reset your password for your Book Heaven account, please click the button bellow:
+        </p>
+      </div>
+      <center>
+        <a class="button" href="<%=validationlink%>">Reset Password</a>
+      </center>
+      <div class="content">
+        <p>
+          If you did not sent password reset request, you can safely ignore this
+          email.
+        </p>
+        <p>Best regards,</p>
+        <p>Book Heaven</p>
+      </div>
+    </div>
+  </body>
+</html>
