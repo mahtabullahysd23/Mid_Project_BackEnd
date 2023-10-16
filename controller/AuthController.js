@@ -5,6 +5,7 @@ const HTTP_STATUS = require("../constants/statusCodes");
 const response = require("../utility/common");
 const { validationResult } = require("express-validator");
 const bcrypt = require("bcrypt");
+const crypto = require("crypto");
 const jsonWebtoken = require("jsonwebtoken");
 const ejs = require("ejs");
 const path = require("path");
@@ -104,7 +105,6 @@ class Authcontroller {
           path.join(__dirname, "../views/verifyemail.ejs"),
           { name, validationlink, port: process.env.PORT }
         );
-
         sendEmail(email, "Account Verification", renderedHtml);
 
         return true;
@@ -258,6 +258,141 @@ class Authcontroller {
       );
     }
   }
-}
 
+  async sendForgotPasswordEmail(req, res) {
+    try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return response(
+          res,
+          HTTP_STATUS.BAD_REQUEST,
+          "Validation Error",
+          errors.array()
+        );
+      }
+
+      const { email } = req.body;
+      const token = crypto.randomBytes(20).toString("hex");
+      const user_auth = await Auth.findOne({ "email.id": email })
+        .select("-password")
+        .populate("user", "name");
+      if (!user_auth) {
+        return response(res, HTTP_STATUS.NOT_FOUND, "Invalid Request");
+      }
+      const name = user_auth.user.name;
+      const validationlink = `https://bookheaven.onrender.com/reset-password/${token}/${user_auth._id}`;
+      // const validationlink = `http://localhost:5173/reset-password/${token}/${user_auth._id}`;
+      const renderedHtml = await ejs.renderFile(
+        path.join(__dirname, "../views/forgotPassEmail.ejs"),
+        { name, validationlink, port: process.env.PORT }
+      );
+      const user = await Auth.findOneAndUpdate(
+        { "email.id": email },
+        {
+          $set: {
+            resetPasswordToken: token,
+            resetPasswordExpires: new Date(Date.now()+120000),
+            resetPasswordStatus: true,
+          },
+        }
+      );
+      if (user) {
+        sendEmail(email, "Reset Password", renderedHtml);
+        return response(res, HTTP_STATUS.OK, "Email Sent");
+      } else {
+        return response(res, HTTP_STATUS.NOT_FOUND, "Invalid Request");
+      }
+    } catch (e) {
+      return response(
+        res,
+        HTTP_STATUS.INTERNAL_SERVER_ERROR,
+        "Invalid Request"
+      );
+    }
+  }
+
+  async checkResetPasswordToken(req, res) {
+    try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return response(
+          res,
+          HTTP_STATUS.BAD_REQUEST,
+          "Validation Error",
+          errors.array()
+        );
+      }
+      const { token, id } = req.body;
+      const user = await Auth.findOne({
+        resetPasswordToken: token,
+        resetPasswordExpires: { $gt: Date.now() },
+        _id: id,
+      });
+      if (!user) {
+        return response(res, HTTP_STATUS.NOT_FOUND, "Invalid Request");
+      }
+      return response(res, HTTP_STATUS.OK, "Valid Request");
+    } catch (e) {
+      return response(
+        res,
+        HTTP_STATUS.INTERNAL_SERVER_ERROR,
+        "Internal Server Error"
+      );
+    }
+  }
+
+  async resetPassword (req, res) {
+    try {
+
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return response(
+          res,
+          HTTP_STATUS.BAD_REQUEST,
+          "Validation Error",
+          errors.array()
+        );
+      }
+      const {token,id,password} = req.body;
+
+      const user = await Auth.findOne({
+        resetPasswordToken: token,
+        resetPasswordExpires: { $gt: Date.now() },
+        _id: id,
+      });
+      if (!user) {
+        return response(res, HTTP_STATUS.NOT_FOUND, "Invalid Request");
+      }
+      const user_prev_password = user.password;
+      const match = await bcrypt.compare(password, user_prev_password);
+      if (match) {
+        return response(res, HTTP_STATUS.CONFLICT, "Password cannot be same as previous password");
+      }
+      const salt = await bcrypt.genSalt(10);
+      const hash = await bcrypt.hash(password, salt);
+      const updatedUser = await Auth.findOneAndUpdate(
+        { _id: id },
+        {
+          $set: {
+            password: hash,
+            resetPasswordToken: null,
+            resetPasswordExpires: null,
+            resetPasswordStatus: false,
+          },
+        }
+      );
+      if (updatedUser) {
+        return response(res, HTTP_STATUS.OK, "Password Reset Successfull");
+      } else {
+        return response(res, HTTP_STATUS.NOT_FOUND, "Invalid Request");
+      }
+    } catch (e) {
+      return response(
+        res,
+        HTTP_STATUS.INTERNAL_SERVER_ERROR,
+        "Internal Server Error"
+      );
+    }
+  }
+}
 module.exports = new Authcontroller();

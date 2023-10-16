@@ -47,6 +47,24 @@ const AuthSchema = new mongoose.Schema({
     banned:{
         type:Boolean,
         default:false
+    },
+
+    resetPasswordToken: {
+        type: String,
+        required: false,
+        default: null
+    },
+
+    resetPasswordExpires: {
+        type: Date,
+        required: false,
+        default: null
+    },
+
+    resetPasswordStatus: {
+        type: Boolean,
+        required: false,
+        default: false
     }
 });
 
