@@ -111,6 +111,49 @@ class UserController {
             return response(res, HTTP_STATUS.INTERNAL_SERVER_ERROR, "Internal Error");
         }
     }
+
+    async getMyProfile(req, res) {
+        try {
+            const user_id = req.user;
+            const user = await User.findById(user_id).select("-__v");
+            if (user) {
+                return response(res, HTTP_STATUS.OK, "User Data Received successfully", user);
+            }
+            return response(res, HTTP_STATUS.NOT_FOUND, "No User Found");
+        } catch (e) {
+            return response(res, HTTP_STATUS.INTERNAL_SERVER_ERROR, "Internal Error");
+        }
+    }
+
+    async updateProfile (req, res) {
+        try {
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return response(
+                    res,
+                    HTTP_STATUS.BAD_REQUEST,
+                    "Validation Error",
+                    errors.array()
+                );
+            }
+            const user_id = req.user;
+            let user = await User.findById(user_id).select("-__v");
+            if (!user) {
+                return response(res, HTTP_STATUS.NOT_FOUND, "User not found");
+            }
+            const {name,address,country,city,number,imageUrl}=req.body;
+            const userUpdaed = await User.findByIdAndUpdate(
+                user_id,
+                { $set: {name,address,country,city,number,imageUrl} }
+            )
+            user = await User.findById(user_id).select("-__v");
+            if (userUpdaed) {
+                return response(res, HTTP_STATUS.OK, "Profile Updated Successfully", user);
+            }
+        } catch (e) {
+            return response(res, HTTP_STATUS.INTERNAL_SERVER_ERROR, "Internal Error");
+        }
+    }
 }
 
 

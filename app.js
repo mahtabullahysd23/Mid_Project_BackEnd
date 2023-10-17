@@ -16,9 +16,12 @@ const ReviewRouter = require("./routers/Review");
 const WalletRouter = require("./routers/Wallet");
 const UserRouter = require("./routers/User"); 
 const DiscountRouter = require("./routers/Discount");
+const FileRouter = require("./routers/File");
 const path = require("path");
 const morgan = require('morgan')
 const fs = require('fs');
+const multer = require("multer");
+
 
 
 var accessLogStream = fs.createWriteStream(path.join(__dirname, 'server.log'), { flags: 'a' })
@@ -58,7 +61,17 @@ app.use("/api/reviews", ReviewRouter);
 app.use("/api/wallet", WalletRouter);
 app.use("/api/user", UserRouter);
 app.use("/api/discount", DiscountRouter);
+app.use("/api/files",FileRouter);
 
+
+app.use((err, req, res, next) => {
+  console.log(err);
+  if (err instanceof multer.MulterError) {
+      return response(res, 404, err.message);
+  } else {
+      next(err);
+  }
+});
 
 app.use((err, req, res, next) => {
   if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {

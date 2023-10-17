@@ -51,7 +51,6 @@ const isValidUser = ((req, res, next) => {
             next();
         }
         else if(payload.data.role != 'user' && payload.data.role != 'premium_user'){
-
             return response(res, 401, "Unauthorized Access");
         }
         else{

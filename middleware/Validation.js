@@ -298,6 +298,69 @@ const userValidator = {
       .isIn(["user", "premium_user"])
       .withMessage("Role must be either user or premium_user"),
   ],
+  updateProfile: [
+    body("name")
+      .optional()
+      .bail()
+      .notEmpty()
+      .withMessage("Name cannot be empty")
+      .bail()
+      .isString()
+      .withMessage("Name must be a string")
+      .isLength({ max: 30 })
+      .withMessage("Name cannot be more than 30 characters"),
+    body("address")
+      .optional()
+      .bail()
+      .notEmpty()
+      .withMessage("Address cannot be empty")
+      .bail()
+      .isString()
+      .withMessage("Address must be a string")
+      .isLength({ max: 30 })
+      .withMessage("Address cannot be more than 30 characters"),
+    body('city')
+      .optional()
+      .bail()
+      .notEmpty()
+      .withMessage("City cannot be empty")
+      .bail()
+      .isString()
+      .withMessage("City must be a string")
+      .isLength({ max: 30 })
+      .withMessage("City cannot be more than 30 characters"),
+    body('country')
+      .optional()
+      .bail()
+      .notEmpty()
+      .withMessage("Country cannot be empty")
+      .bail()
+      .isString()
+      .withMessage("Country must be a string")
+      .isLength({ max: 30 })
+      .withMessage("Country cannot be more than 30 characters"),
+    body('number')
+      .optional()
+      .bail()
+      .notEmpty()
+      .withMessage("Number cannot be empty")
+      .bail()
+      .isNumeric()
+      .withMessage("Number must be a number")
+      .bail()
+      .isLength({ max: 30 })
+      .withMessage("Number cannot be more than 30 characters"),
+    body('imageUrl')
+      .optional()
+      .bail()
+      .notEmpty()
+      .withMessage("ImageUrl cannot be empty")
+      .bail()
+      .isString()
+      .withMessage("ImageUrl must be a string")
+      .isLength({ max: 100 })
+      .withMessage("Image file name cannot be more than 100 characters"),
+  ],
 };
 
 const bookValidator = {

@@ -15,6 +15,26 @@ const UserSchema = new mongoose.Schema({
     address: {  
         type: String,
         required: [true, "Address is required"]
+    },
+    imageUrl: {
+        type: String,
+        required:false,
+        default:"myimg.png"
+    },
+    city: {
+        type: String,
+        required:false,
+        default:""
+    },
+    country: {
+        type: String,
+        required: false,
+        default:""
+    },
+    number: {
+        type: Number,
+        required: false,
+        default:""
     }
     }
 );
